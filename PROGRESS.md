@@ -31,6 +31,8 @@ Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage
 - `#print axioms` on `all70_spec` (which depends on all 140 per-code theorems), a sample `not_convex` and `linksCollapsible`, `linksCollapsible_of_certOK`, `hull_eq_of_isMaxInter`, `mem_delta_iff_maximal`, `link_delta_eq`, `theorem1a` and `theorem1b` gives exactly [propext, Classical.choice, Quot.sound].
 - No `sorry`, `admit` or `native_decide` (grep finds only the doc comment in Census.lean).
 
+**CI.** GitHub Actions run 44996799795 on commit def015c passed (`lake build` from scratch, 13 min 23 s).
+
 **Build time.** The Stage 8 files take about 15 min locally (Links1 about 11 min, the largest).
 - The chunks are chained (Links1 imports Convex1, Links2 imports Convex2), so at most two heavy Lean processes run at once. With four at once, this 8 GB machine crashed Lean (exit code 0xC0000409); each file compiles fine on its own.
 
