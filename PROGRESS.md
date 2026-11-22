@@ -2,6 +2,25 @@
 
 One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Lean Rim Brief.md`.
 
+## 2026-11-21: Stage 4 (Case A, the overlap case of Theorem 1(b))
+
+**Done.** `RimRule/CaseA.lean` (170 lines) compiles with `lake build`. It compiled on the second attempt; the only error was a `▸` cast, fixed with `rw`.
+- `caseA`: in an open convex realization (any real topological vector space), with σ_i ≠ ∅, H1ₘ and F_A, take a ∈ U_imp \ U_j and b ∈ U_jmp. If some point of [a, b] lies in U_i ∩ U_j, that's a contradiction (`False`).
+- `caseA_realSpace`: the same statement on ℝ^d = `Fin d → ℝ`, the space used in `IsOpenConvex`.
+- The proof follows the council note §2 Case A with the referee's repair: H1ₘ is applied at c itself, and c ∉ U_j covers both c = a and c > a.
+- How "the first point of the U_j part" is found: parametrize [a, b] by `lineMap a b t`. Let S = {t > 0 : lineMap a b t ∈ U_j} and c = inf S. S is open, so c ∉ S. c is in the closure of S, so the open preimage of U_ikmp around c meets S. That replaces the ball in the paper with an open interval in the parameter.
+- Helpers, reusable in Stage 5 and 6: `mem_inter_union` (U_{σ∪τ} = U_σ ∩ U_τ), `mem_X_of_mem_inter` (σ ≠ ∅ ⇒ U_σ ⊆ X, referee fix 3), `codeword_mem_of_mem_X`, `isOpen_inter`, `convex_inter`.
+- b ∈ U_j isn't used in Case A. Only b ∈ U_mp is. I kept the paper's hypothesis b ∈ U_jmp anyway so the Stage 6 call is direct.
+- `#print axioms` on `caseA`, `caseA_realSpace` and `mem_inter_union` gives exactly [propext, Classical.choice, Quot.sound]. No `sorry` and no `native_decide` (grep finds only the doc comment in Census.lean).
+- `CaseA.lean` imports only `RimRule.Defs`. It builds in about 22 s, and the full `lake build` takes about 57 s.
+- `RimRule.lean` now imports `RimRule.CaseA`.
+
+**Line count:** Defs 185, Census 89, Rockafellar 69, CaseA 170. Total 513.
+
+**Next: Stage 5 (Case B, the lowest-point case).** Same setting, plus z ∈ U_ijm and the assumption that [a, b] misses W = U_i ∩ U_j. Show T = conv(a, b, z) is non-degenerate, take r lowest in cl W ∩ T, and get [a, r) ⊆ U_k and [b, r) ⊆ U_l. Then r ∈ cl U_k ∩ cl U_l = cl (U_k ∩ U_l) (Stage 3 + H3), and r ∈ U_m breaks H4. Handle r = a, r = b and h(r) = 0 explicitly. NOTES.md has the barycentric-weight idea that may avoid building h.
+
+**Blockers:** none.
+
 ## 2026-11-21: Stage 3 (Rockafellar 6.5, trial run)
 
 **Done.** `RimRule/Rockafellar.lean` (69 lines) compiles with `lake build`. It compiled on the first attempt, so the trial run passes and we can go on to Stage 4.
