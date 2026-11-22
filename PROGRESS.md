@@ -2,6 +2,35 @@
 
 One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Lean Rim Brief.md`.
 
+## 2026-11-21: Stage 2 (Census)
+
+**Done.** `RimRule/Census.lean` (89 lines) compiles with `lake build`. It has no `sorry` and no `native_decide`.
+- C5-033 is entered from `data/C5-033.md` (13 codewords; labels 1..6 in `Fin 7`, neuron 0 unused). Roles are (i,j,k,l,m,p) = (4,5,1,2,3,6).
+- This matches the council note's letter form of 033 codeword for codeword (ikmp = 1346, jlmp = 2356, ijkm = 1345, and so on).
+- Proved by `decide +kernel`: H1ₘ, H2ₘ, H3, H4, H5′, H6, H7, F_A and F_B, each as its own theorem.
+- Bundled as `theorem1b_hyps` (σ_i ≠ ∅, Core, H3, H4) and `theorem1a_hyps` (σ_i ≠ ∅, Core, F_B). So both theorem statements are non-vacuous.
+- Data checks:
+  - `card_C033`: 13 codewords.
+  - `facets033_correct`: the maximal codewords are exactly 12, 1345, 1346, 2345, 2356.
+  - `isNeuralCode_C033`: ∅ is a codeword.
+- Negative controls:
+  - `control_no_apex`: with m = ∅, H4 fails.
+  - `control_drop_1346`: without 1346, H5′ fails.
+- `#print axioms` on all of the above gives exactly [propext, Classical.choice, Quot.sound]. That rules out `Lean.ofReduceBool`.
+- `Census.lean` builds in about 26 s.
+
+**Changes to `Defs.lean`:** I added a `Decidable` instance for `IsNeuralCode` (185 lines now). No statement changed, so CHANGES.md is unchanged.
+
+**Issues met:**
+- Plain `decide` hit max recursion depth on the 13-codeword code. `decide +kernel` works, as the brief allows. See NOTES.md.
+- My first negative control (swap k and m) was wrong: k ∪ l ∪ m is still {1,2,3}. The kernel rejected it, and I replaced it with the m = ∅ control.
+
+**General X:** kept. Stage 2 doesn't touch realizations, so nothing to switch.
+
+**Next: Stage 3 (Rockafellar 6.5, the trial run).** For open convex U, V with U ∩ V ≠ ∅, prove closure U ∩ closure V ⊆ closure (U ∩ V). NOTES.md has the plan via `Convex.openSegment_interior_closure_subset_interior`.
+
+**Blockers:** none.
+
 ## 2026-11-21: Stages 0 and 1
 
 **Stage 0 (Setup): done.**
