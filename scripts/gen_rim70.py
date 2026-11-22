@@ -3,11 +3,13 @@
 Usage (from the project root):  python scripts/gen_rim70.py [--limit N]
 
 Writes
-  RimRule/Rim70/Data.lean     the 70 codes and their open/closed roles
-  RimRule/Rim70/Convex.lean   Theorem 1(b)/(a) hypotheses by `decide +kernel`, and
-                              "neither open- nor closed-convex" for each code
-  RimRule/Rim70/Links.lean    a collapse certificate per code, and `LinksCollapsible`
-  RimRule/Rim70/Summary.lean  the list of all 70 codes and the summary theorem
+  RimRule/Rim70/Data.lean       the 70 codes and their open/closed roles
+  RimRule/Rim70/Basic.lean      the bundled hypotheses of Theorem 1(b)/(a)
+  RimRule/Rim70/Convex{1,2}.lean  Theorem 1(b)/(a) hypotheses by `decide +kernel`,
+                              "neither open- nor closed-convex", and `∅ ∈ C`, for each code
+  RimRule/Rim70/Links{1,2}.lean   a collapse certificate per code (faces equal to their hull),
+                              and `LocallyGoodC` via the cone lemma for the other faces
+  RimRule/Rim70/Summary.lean    the list of all 70 codes, `all70_nodup` and `all70_spec`
 
 The Lean kernel re-checks everything; this script only finds the certificates
 (collapse sequences), by depth-first search with memoisation.
@@ -139,10 +141,12 @@ CHUNKS = 2  # proof files per half, so `lake build` can check them in parallel
 DATA_DOC = """/-!
 # Stage 8 data: 70 codes that Theorem 1 rules out
 
-Generated from `data/rim70.json` (source: WheelsCode, github.com/aruysdeperez/WheelsCode,
-`{Five,Six,Seven}Fac_WIRE_WHEEL_6.sage`, filtered to solved = 0, wheel = 0, reduced = 1,
-indecomposable = 1). Each code uses the neurons 1..6; as in `Census.lean` we use `Fin 7` and
-leave neuron 0 unused. Each code comes with roles `(i,j,k,l,m,p)` for Theorem 1(b) (`openRoles`)
+Generated from `data/rim70.json`. Source: WheelsCode, github.com/aruysdeperez/WheelsCode,
+`{Five,Six,Seven}Fac_WIRE_WHEEL_6.sage`. The filter solved = 0, wheel = 0, reduced = 1,
+indecomposable = 1 gives 1,800 codes (96 + 535 + 1,169). These 70 are the ones among them
+for which role assignments satisfying the hypotheses of both Theorem 1(b) and Theorem 1(a)
+were found. Each code uses the neurons 1..6; as in `Census.lean` we use `Fin 7` and leave
+neuron 0 unused. Each code comes with roles `(i,j,k,l,m,p)` for Theorem 1(b) (`openRoles`)
 and for Theorem 1(a) (`closedRoles`), copied from the JSON.
 -/
 """
@@ -179,7 +183,7 @@ instance {n : ℕ} (C : Finset (Finset (Fin n))) (R : Roles n) : Decidable (Hyps
 /-- Theorem 1(b) and Theorem 1(a) together. -/
 theorem not_convex_of_hyps {n : ℕ} {C : Finset (Finset (Fin n))} {Ro Rc : Roles n}
     (h : Hyps1b C Ro ∧ Hyps1a C Rc) : ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C :=
-  ⟨theorem1b n C Ro h.1.1 h.1.2.1 h.1.2.2.1 h.1.2.2.2,
+  ⟨(theorem1b n C Ro h.1.1 h.1.2.1 h.1.2.2.1 h.1.2.2.2).1,
     theorem1a n C Rc h.2.1 h.2.2.1 h.2.2.2⟩
 
 end RimRule.Rim70
@@ -190,20 +194,23 @@ CONVEX_DOC = """/-!
 
 For each code, `decide +kernel` checks every hypothesis of Theorem 1(b) with its open roles and
 every hypothesis of Theorem 1(a) with its closed roles (`hyps`). Then `theorem1b` and `theorem1a`
-give `not_convex`: the code is neither open-convex nor closed-convex.
+give `not_convex`: the code is neither open-convex nor closed-convex. `isNeuralCode` checks
+`∅ ∈ C`.
 -/
 """
 
 LINKS_DOC = """/-!
-# Stage 8: the codes have collapsible links (part {part} of {total})
+# Stage 8: the codes are locally good, up to one cited fact (part {part} of {total})
 
-For each code, `cert` lists every nonempty face of `Δ(C)` that is an intersection of maximal
-codewords and is not a codeword, with a sequence of elementary collapses that takes its link to
-a single vertex. `decide +kernel` checks the certificate (`CertOK`), and
-`linksCollapsible_of_certOK` turns it into `LinksCollapsible C`.
+For each code, `cert` lists every nonempty face of `Δ(C)` that is not a codeword and equals its
+hull (these include all intersections of maximal codewords), with a sequence of elementary
+collapses that takes its link to a single vertex. `decide +kernel` checks the certificate
+(`certOK`). `locallyGoodC_of_certOK` (`RimRule/LocallyGood.lean`) then gives `LocallyGoodC C`:
+every other nonempty non-codeword face has a cone link, which collapses by the general lemma
+`collapsible_of_cone`, so no face is skipped.
 
-Collapsible ⇒ contractible ⇒ no local obstruction is a cited textbook fact, not proved here
-(see the module doc of `RimRule/Complex.lean`).
+Collapsible ⇒ contractible is the one cited textbook fact, not proved here (see the module
+doc of `RimRule/LocallyGood.lean`).
 -/
 """
 
@@ -256,6 +263,9 @@ theorem {name}.hyps :
 
 theorem {name}.not_convex : ¬ IsOpenConvex {name} ∧ ¬ IsClosedConvex {name} :=
   not_convex_of_hyps {name}.hyps
+
+theorem {name}.isNeuralCode : IsNeuralCode {name} := by
+  decide +kernel
 """)
         entries = []
         for s in missing_faces(C):
@@ -270,8 +280,14 @@ theorem {name}.not_convex : ¬ IsOpenConvex {name} ∧ ¬ IsClosedConvex {name} 
 /-- {name}: {len(entries)} faces to check. -/
 def {name}.cert : List (LinkCert 7) := {body}
 
+theorem {name}.certOK : CertOK {name} {name}.cert := by
+  decide +kernel
+
+theorem {name}.locallyGoodC : LocallyGoodC {name} :=
+  locallyGoodC_of_certOK {name}.certOK
+
 theorem {name}.linksCollapsible : LinksCollapsible {name} :=
-  linksCollapsible_of_certOK (by decide +kernel : CertOK {name} {name}.cert)
+  {name}.locallyGoodC.linksCollapsible
 """)
 
     write(out / "Data.lean", "import RimRule.Defs\n", DATA_DOC, "".join(data_b))
@@ -286,12 +302,13 @@ theorem {name}.linksCollapsible : LinksCollapsible {name} :=
         # Links{k} imports Convex{k} only to order the build, so at most CHUNKS heavy Lean
         # processes run at once (four at once ran out of memory on an 8 GB machine).
         write(out / f"Links{k + 1}.lean",
-              f"import RimRule.Rim70.Convex{k + 1}\nimport RimRule.Complex\n",
+              f"import RimRule.Rim70.Convex{k + 1}\nimport RimRule.LocallyGood\n",
               LINKS_DOC.format(part=k + 1, total=CHUNKS), "".join(links_b[sl]))
         mods += [f"RimRule.Rim70.Convex{k + 1}", f"RimRule.Rim70.Links{k + 1}"]
 
     names = [c["id"] for c in codes]
-    cases = "".join(f"  · exact ⟨{nm}.not_convex.1, {nm}.not_convex.2, {nm}.linksCollapsible⟩\n"
+    cases = "".join(f"  · exact ⟨{nm}.isNeuralCode, {nm}.locallyGoodC, {nm}.not_convex.1,\n"
+                    f"      {nm}.not_convex.2⟩\n"
                     for nm in names)
     pats = "\n      | ".join(" | ".join(["rfl"] * min(12, len(names) - i)) for i in range(0, len(names), 12))
     summ = f"""
@@ -301,9 +318,16 @@ def all70 : List (Finset (Finset (Fin 7))) :=
 
 theorem length_all70 : all70.length = {len(names)} := rfl
 
-/-- Every code in `all70` is neither open-convex nor closed-convex, and has collapsible links. -/
+/-- The {len(names)} codes are pairwise distinct (as codes on the labelled neurons; that they are
+also pairwise non-isomorphic under relabelling is checked in Python, not in Lean). -/
+theorem all70_nodup : all70.Nodup := by
+  decide +kernel
+
+/-- Every code in `all70` is a neural code (`∅ ∈ C`), satisfies `LocallyGoodC` (every nonempty
+non-codeword face of `Δ(C)` has a collapsible link), and is neither open-convex nor
+closed-convex. -/
 theorem all70_spec :
-    ∀ C ∈ all70, ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C ∧ LinksCollapsible C := by
+    ∀ C ∈ all70, IsNeuralCode C ∧ LocallyGoodC C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C := by
   intro C hC
   simp only [all70, List.mem_cons, List.not_mem_nil, or_false] at hC
   rcases hC with {pats}
@@ -311,10 +335,11 @@ theorem all70_spec :
     summ_doc = f"""/-!
 # Stage 8 summary
 
-`all70` lists the {len(names)} codes of `data/rim70.json`. Each is neither open-convex nor
-closed-convex (Theorem 1), and each has collapsible links (`LinksCollapsible`). By the cited
-facts in `RimRule/Complex.lean` (collapsible ⇒ contractible ⇒ no local obstruction, not proved
-here), none of them has a local obstruction.
+`all70` lists the {len(names)} codes of `data/rim70.json`; `all70_nodup` says they are distinct.
+`all70_spec`: each is a neural code, satisfies `LocallyGoodC`, and is neither open-convex nor
+closed-convex (Theorem 1). With the one cited fact collapsible ⇒ contractible (not proved
+here; see `RimRule/LocallyGood.lean`), `LocallyGoodC` means locally good, so each code is a
+counterexample to Conjecture 3.13 of Gambacini–Jeffs–Macdonald–Shiu (`RimRule/Conj313.lean`).
 -/
 """
     write(out / "Summary.lean", "".join(f"import {m}\n" for m in mods), summ_doc, summ)

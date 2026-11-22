@@ -29,7 +29,9 @@ open Set
 
 /-! ### Neural codes -/
 
-/-- Paper: "A **neural code** is `C ⊆ 2^[n]` with `∅ ∈ C`." -/
+/-- Paper: "A **neural code** is `C ⊆ 2^[n]` with `∅ ∈ C`." (This quotes the council note.
+Gambacini et al. Def 2.1 and Chan et al. Def 2.1 do not require `∅ ∈ C`; Chan et al. add it as
+Assumption 2.5. Asking for it only makes a statement "`C` is a neural code and …" stronger.) -/
 def IsNeuralCode {n : ℕ} (C : Finset (Finset (Fin n))) : Prop :=
   ∅ ∈ C
 
@@ -39,7 +41,12 @@ instance {n : ℕ} (C : Finset (Finset (Fin n))) : Decidable (IsNeuralCode C) :=
 /-! ### Realizations
 
 Paper: "A **realization** consists of sets `U₁,…,Uₙ ⊆ X ⊆ ℝ^d` with
-`C = {c(x) : x ∈ X}`, where `c(x) = {s : x ∈ U_s}` (Chan et al. Def 2.4)."
+`C = {c(x) : x ∈ X}`, where `c(x) = {s : x ∈ U_s}`." This is the code of a realization,
+Chan et al. Def 2.3 (Gambacini et al. Def 2.3). Those papers state it with atoms: `σ` is a
+codeword iff `U_σ ∖ ⋃_{j∉σ} U_j ≠ ∅`, with `U_∅ := X`. A point `x` lies in that atom exactly
+when `x ∈ X` and `c(x) = σ` (for `σ ≠ ∅`, `x ∈ X` follows from `U_i ⊆ X`), so the two forms
+agree whenever every `U_s ⊆ X`, which `IsRealization` requires. Open/closed convexity
+(Def 2.4 in both papers) is `IsOpenConvex` / `IsClosedConvex` below.
 
 The ambient space is an arbitrary type `E`; the theorem statements below
 specialise it to `ℝ^d = Fin d → ℝ`. -/
@@ -53,7 +60,17 @@ noncomputable def codeword (U : Fin n → Set E) (x : E) : Finset (Fin n) := by
   classical
   exact Finset.univ.filter (fun s => x ∈ U s)
 
-/-- Paper: `U_σ = ⋂_{s∈σ} U_s`, with `U_∅ = ℝ^d` (here `univ`, automatically). -/
+/-- Paper: `U_σ = ⋂_{s∈σ} U_s`, with `U_∅ = ℝ^d` (here `univ`, automatically).
+
+The published papers (Chan et al. Def 2.3, Gambacini et al. Def 2.3) instead set
+`U_∅ := X`. For a general stimulus space `X`, `univ ≠ X`, but this is **harmless**:
+* the code of a realization is defined by `codeOf X U = c '' X` (points of `X` only), not
+  through `inter`, so the convention never enters the definitions of `IsOpenConvex` and
+  `IsClosedConvex`;
+* for `σ ≠ ∅` the two conventions agree, since `U_s ⊆ X`;
+* `inter` appears in no statement (not in `IsRealization`, `IsOpenConvex`, `IsClosedConvex`,
+  the hypotheses, `Theorem1a` or `Theorem1b`), only inside proofs, which Lean checks. So the
+  convention cannot change what any theorem says. -/
 def inter (U : Fin n → Set E) (σ : Finset (Fin n)) : Set E :=
   ⋂ s ∈ σ, U s
 
@@ -170,11 +187,12 @@ These are the statements to be proved in later stages. They are stated here,
 next to the definitions, so a reader can check them against the paper. -/
 
 /-- **Theorem 1(b) (Rim\*)**, paper §5: Let `σ_i ≠ ∅`. If `C` satisfies the core
-hypotheses (H1ₘ, H2ₘ, H5′, H6, H7, F_A) together with H3 and H4, then `C` is not
-open-convex. -/
+hypotheses (H1ₘ, H2ₘ, H5′, H6, H7, F_A) together with H3 and H4, then `C` is neither
+open-convex nor closed-convex. (The closed half follows from Theorem 1(a), since H4 implies
+F_B.) -/
 def Theorem1b : Prop :=
   ∀ (n : ℕ) (C : Finset (Finset (Fin n))) (R : Roles n),
-    R.i.Nonempty → Core C R → H3 C R → H4 C R → ¬ IsOpenConvex C
+    R.i.Nonempty → Core C R → H3 C R → H4 C R → ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C
 
 /-- **Theorem 1(a) (closed Rim)**, paper §5: Let `σ_i ≠ ∅`. If `C` satisfies the core
 hypotheses together with F_B, then `C` is not closed-convex. (`σ_m = ∅` allowed.) -/

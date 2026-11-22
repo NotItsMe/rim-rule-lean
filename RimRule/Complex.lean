@@ -29,21 +29,17 @@ Convention: a complex is a `Finset (Finset (Fin n))` that contains the empty fac
 
 ## What is proved and what is cited
 
-**Collapsible ⇒ contractible ⇒ no local obstruction is a cited textbook fact, not proved
-here.**
+`LinksCollapsible C` is a purely combinatorial statement. It only covers the faces that are
+intersections of maximal codewords; using it alone for "locally good" would need two cited
+facts (collapsible ⇒ contractible, and Curto et al. Cor 4.6 for the skipped faces).
 
-`LinksCollapsible C` is a purely combinatorial statement, and that is all this project proves
-about it. Its meaning for convexity rests on two facts that are **cited, not proved here**:
-1. *Collapsible ⇒ contractible.* An elementary collapse is a deformation retraction, so a
-   collapsible complex is contractible. This is a standard textbook fact of combinatorial
-   topology; it is not formalized here (mathlib has no geometric realization of abstract
-   simplicial complexes to state it with).
-2. *Contractible links ⇒ no local obstruction* (Curto et al., arXiv 1508.00150): a code has a
-   local obstruction exactly when some `σ ∈ Δ(C) ∖ C` that is a nonempty intersection of
-   maximal codewords has a non-contractible link in `Δ(C)`.
-
-So "`LinksCollapsible C` ⇒ C has no local obstruction" is a cited consequence. The Lean
-theorems only establish `LinksCollapsible C` itself.
+The stronger `LocallyGoodC C` (`RimRule/LocallyGood.lean`) covers **every** nonempty
+non-codeword face. There the skipped faces are handled by a proved lemma (their links are
+cones, and cones collapse), so "locally good" rests on exactly **one** cited fact:
+*collapsible ⇒ contractible*. An elementary collapse is a deformation retraction, so a
+collapsible complex is contractible. This is a standard textbook fact of combinatorial
+topology; it is not formalized here (mathlib has no geometric realization of abstract
+simplicial complexes to state it with).
 -/
 
 namespace RimRule
@@ -152,7 +148,8 @@ def IsMaxInter (C : Finset (Finset (Fin n))) (σ : Finset (Fin n)) : Prop :=
 
 /-- **LinksCollapsible C**: every nonempty face `σ ∈ Δ(C)` that is an intersection of maximal
 codewords and is not a codeword has a collapsible link `lk_σ(Δ(C))`.
-(By the cited facts in the module doc, this implies C has no local obstruction.) -/
+(Weaker than `LocallyGoodC`, which asks this of every nonempty non-codeword face; see the
+module doc.) -/
 def LinksCollapsible (C : Finset (Finset (Fin n))) : Prop :=
   ∀ σ : Finset (Fin n), σ ∈ delta C → σ.Nonempty → IsMaxInter C σ → σ ∉ C →
     Collapsible (link (delta C) σ)

@@ -1,5 +1,6 @@
 import RimRule.CaseB
 import RimRule.Census
+import RimRule.Theorem1a
 
 -- This project is not part of mathlib, so the mathlib copyright-header linter does not apply.
 set_option linter.style.header false
@@ -7,7 +8,9 @@ set_option linter.style.header false
 /-!
 # Theorem 1(b) (Rim\*), assembled
 
-`theorem1b` proves `Theorem1b` exactly as stated in `RimRule/Defs.lean`.
+`theorem1b` proves `Theorem1b` exactly as stated in `RimRule/Defs.lean`: neither open-convex
+nor closed-convex. The open half is `theorem1b_open` (below). The closed half is Theorem 1(a)
+(`theorem1a`), because H4 implies F_B (`fB_of_h4`).
 
 Proof (council note §2): take a realization by open convex sets. H5′, H6 and H7 give points
 `a ∈ U_imp ∖ U_j`, `b ∈ U_jmp` and `z ∈ U_ijm`. Either `U_i` and `U_j` overlap on `[a, b]`
@@ -20,9 +23,10 @@ contradicts H4).
 
 namespace RimRule
 
-/-- **Theorem 1(b) (Rim\*).** Let `σ_i ≠ ∅`. If `C` satisfies the core hypotheses
+/-- **Theorem 1(b) (Rim\*), open half.** Let `σ_i ≠ ∅`. If `C` satisfies the core hypotheses
 (H1ₘ, H2ₘ, H5′, H6, H7, F_A) together with H3 and H4, then `C` is not open-convex. -/
-theorem theorem1b : Theorem1b := by
+theorem theorem1b_open : ∀ (n : ℕ) (C : Finset (Finset (Fin n))) (R : Roles n),
+    R.i.Nonempty → Core C R → H3 C R → H4 C R → ¬ IsOpenConvex C := by
   intro n C R hi hcore h3 h4 hopen
   obtain ⟨d, X, U, hR, hU⟩ := hopen
   -- `a` from H5′: a codeword containing i, m, p and not j.
@@ -43,10 +47,24 @@ theorem theorem1b : Theorem1b := by
   · exact caseA_realSpace hR hU hi hcore.h1m hcore.fA ha haj hb hover
   · exact caseB_realSpace hR hU hi hcore.h1m hcore.h2m h3 h4 ha haj hb hz hover
 
+/-- H4 (no codeword contains k, l, m) implies F_B (no codeword contains i, j, k, l, m). -/
+theorem fB_of_h4 {n : ℕ} {C : Finset (Finset (Fin n))} {R : Roles n} (h4 : H4 C R) :
+    FB C R := by
+  intro c hc h
+  refine h4 c hc (fun x hx => h ?_)
+  simp only [Finset.mem_union] at hx ⊢
+  tauto
+
+/-- **Theorem 1(b) (Rim\*).** Let `σ_i ≠ ∅`. If `C` satisfies the core hypotheses
+(H1ₘ, H2ₘ, H5′, H6, H7, F_A) together with H3 and H4, then `C` is neither open-convex nor
+closed-convex. -/
+theorem theorem1b : Theorem1b := fun n C R hi hcore h3 h4 =>
+  ⟨theorem1b_open n C R hi hcore h3 h4, theorem1a n C R hi hcore (fB_of_h4 h4)⟩
+
 /-- **Corollary.** C5-033 is not open-convex: Theorem 1(b) applies with roles
 `(i,j,k,l,m,p) = (4,5,1,2,3,6)`, and the census checks every hypothesis. -/
 theorem C033_not_isOpenConvex : ¬ IsOpenConvex Census.C033 := by
   obtain ⟨hi, hcore, h3, h4⟩ := Census.theorem1b_hyps
-  exact theorem1b 7 Census.C033 Census.R033 hi hcore h3 h4
+  exact (theorem1b 7 Census.C033 Census.R033 hi hcore h3 h4).1
 
 end RimRule

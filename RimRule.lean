@@ -6,4 +6,6 @@ import RimRule.CaseB
 import RimRule.Main
 import RimRule.Theorem1a
 import RimRule.Complex
+import RimRule.LocallyGood
 import RimRule.Rim70.Summary
+import RimRule.Conj313

@@ -4,6 +4,19 @@ One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Le
 
 Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-22: Stage 9 (every missing face; one cited fact; Conjecture 3.13 headline)
+
+**Done.** Brief: DEF_CHECK.md (referee pass on Stage 8). Full write-up: `LEAN_FINAL.md`.
+- **New `RimRule/LocallyGood.lean`** (215 lines): `LocallyGoodC C` (every nonempty face of Δ(C) that is not a codeword has a collapsible link), `collapsible_of_cone` (any cone complex collapses to its apex), `collapsible_link_of_hull_ne` (a face that is not its own hull has a cone link), `locallyGoodC_of_certOK`. The 278 certificates are unchanged; the other 1,132 missing faces are covered by the cone lemma, so the old second cited fact (Curto et al. Cor 4.6) is now proved. Only collapsible ⇒ contractible is cited.
+- **`all70_spec`** now reads `∀ C ∈ all70, IsNeuralCode C ∧ LocallyGoodC C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C`. New `all70_nodup`.
+- **New `RimRule/Conj313.lean`**: `conj313_counterexample : ∃ C : Finset (Finset (Fin 7)), IsNeuralCode C ∧ LocallyGoodC C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C`.
+- **Statement change (stronger):** `Theorem1b` now concludes `¬ IsOpenConvex C ∧ ¬ IsClosedConvex C`, matching the note's 1(b). Old conclusion kept as `theorem1b_open`; closed half from `theorem1a` via `fB_of_h4`. Logged in CHANGES.md.
+- **Housekeeping:** Defs.lean cites Chan Def 2.3 for the realized code, explains the `U_∅` convention, notes `∅ ∈ C` is Chan Assumption 2.5. Data.lean header: 1,800 filtered codes, 70 fit. README rewritten. Census.lean comment reworded so the forbidden-word scan is empty.
+- **Checks:** forbidden-word scan over `*.lean` returns nothing; `lake build` passes (3424 jobs, only "consider adding `module`" warnings); `lake env lean Check.lean` prints `[propext, Classical.choice, Quot.sound]` for all 13 theorems listed there.
+- **Build:** the parallel `lake build` failed with only ~1.4 GB RAM free (four Lean processes couldn't load mathlib: "failed to read file …Pi.olean"). Built module by module instead: about 22 min total, Links1 335 s, Links2 515 s.
+
+**Blockers:** none.
+
 ## 2026-11-22: Stage 8 (70 codes: not convex, and collapsible links)
 
 **Done.** `lake build` passes with no warnings (apart from the usual "consider adding `module`" notes). No existing theorem statement changed; the only edit to an existing file is the import list in `RimRule.lean`.

@@ -38,7 +38,7 @@ instance {n : ℕ} (C : Finset (Finset (Fin n))) (R : Roles n) : Decidable (Hyps
 /-- Theorem 1(b) and Theorem 1(a) together. -/
 theorem not_convex_of_hyps {n : ℕ} {C : Finset (Finset (Fin n))} {Ro Rc : Roles n}
     (h : Hyps1b C Ro ∧ Hyps1a C Rc) : ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C :=
-  ⟨theorem1b n C Ro h.1.1 h.1.2.1 h.1.2.2.1 h.1.2.2.2,
+  ⟨(theorem1b n C Ro h.1.1 h.1.2.1 h.1.2.2.1 h.1.2.2.2).1,
     theorem1a n C Rc h.2.1 h.2.2.1 h.2.2.2⟩
 
 end RimRule.Rim70

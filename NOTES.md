@@ -8,7 +8,7 @@
 - **∅ ∈ C** is *not* assumed in `Theorem1a/1b`. That makes them stronger statements. `IsNeuralCode` is still defined, to mirror the paper.
 - **σ_i ≠ ∅** is kept as a hypothesis, as in the paper. Referee fix 8 says it could be dropped, but that's optional.
 - "Contains t" means `R.t ⊆ c`. Unions of roles are `Finset` unions, e.g. H5′ is `R.i ∪ R.m ∪ R.p ⊆ c ∧ ¬ R.j ⊆ c`.
-- `Theorem1b` doesn't add "therefore not closed-convex". That follows from 1(a) and H4 ⇒ F_B, and can be a corollary later.
+- ~~`Theorem1b` doesn't add "therefore not closed-convex".~~ Changed 2026-11-22 (Stage 9): `Theorem1b` now concludes `¬ IsOpenConvex C ∧ ¬ IsClosedConvex C`, as in the note's 1(b). The open half is `theorem1b_open`; the closed half is `theorem1a` via `fB_of_h4` (H4 ⇒ F_B).
 
 ## mathlib names confirmed in the installed version (v4.36.0)
 - `Convex.openSegment_interior_closure_subset_interior`: `Mathlib/Analysis/Convex/Topology.lean:142`. This is Rockafellar 6.1 for interiors. Our U are open, so interior U = U.
@@ -62,6 +62,13 @@
 - **Memory:** four Lean processes doing heavy `decide +kernel` at once crashed on this 8 GB PC (exit code 0xC0000409, no message). Chaining the chunk files by imports limits it to two at once.
 - **The JSON's "780 faces"** counts (family, face) pairs; there are 278 distinct faces.
 - **Writing Python from the Bash tool:** `\n` inside a quoted heredoc sometimes reached the file as a real newline and broke string literals. Edit the generator with the Edit tool instead.
+
+## Stage 9 (every missing face, one cited fact), done
+- **Route chosen: a general cone lemma, not 1,132 more certificates.** The 278 certificates already take about 14 min (Links1 335 s + Links2 515 s); the skipped faces are smaller faces with bigger links, so certificates for them would cost far more. Instead `collapsible_of_cone` (`RimRule/LocallyGood.lean`) proves once that any cone complex collapses to its apex, and `collapsible_link_of_hull_ne` shows a face with `hull C σ ≠ σ` has a cone link. The certificates are unchanged.
+- **Cone proof:** strong induction on `K` (`Finset.strongInduction`). Pick a largest nonempty face τ without the apex v (`Finset.exists_max_image`); `(τ, insert v τ)` is free because any ρ ⊋ τ either lacks v (too big) or has `ρ.erase v = τ` by maximality. After removing the pair, `K'` is still a complex containing ∅ and a cone. When no such τ is left, `K = {∅, {v}}`.
+- Lemma names in this mathlib: `card_insert_of_notMem`, `notMem_erase`, `exists_of_ssubset`, `ssubset_iff_of_subset`, `HasSSubset.SSubset.trans_subset`, `HasSubset.Subset.ssubset_of_ne`. `Finset.exists_max_image` takes the set explicitly (`exists_max_image _ card hS`), not via dot notation on the `Nonempty` proof.
+- `all70.Nodup` and `IsNeuralCode` are cheap by `decide +kernel` (about 18 s together in a scratch test).
+- Python check (scratch script): 1,410 nonempty faces of Δ(C) ∖ C across the 70 codes, 278 equal to their hull, 1,132 not. Matches DEF_CHECK.md.
 
 ## CI failure (2026-11-22), fixed
 - **Symptom:** GitHub Actions "Lean Action CI" failed on the Stage 4 and Stage 5 pushes (runs 44981470885, 44982072987) after about 16 min.

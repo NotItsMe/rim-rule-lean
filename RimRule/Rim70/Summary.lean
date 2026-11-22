@@ -11,10 +11,11 @@ set_option linter.style.header false
 /-!
 # Stage 8 summary
 
-`all70` lists the 70 codes of `data/rim70.json`. Each is neither open-convex nor
-closed-convex (Theorem 1), and each has collapsible links (`LinksCollapsible`). By the cited
-facts in `RimRule/Complex.lean` (collapsible ⇒ contractible ⇒ no local obstruction, not proved
-here), none of them has a local obstruction.
+`all70` lists the 70 codes of `data/rim70.json`; `all70_nodup` says they are distinct.
+`all70_spec`: each is a neural code, satisfies `LocallyGoodC`, and is neither open-convex nor
+closed-convex (Theorem 1). With the one cited fact collapsible ⇒ contractible (not proved
+here; see `RimRule/LocallyGood.lean`), `LocallyGoodC` means locally good, so each code is a
+counterexample to Conjecture 3.13 of Gambacini–Jeffs–Macdonald–Shiu (`RimRule/Conj313.lean`).
 -/
 
 namespace RimRule.Rim70
@@ -34,9 +35,16 @@ def all70 : List (Finset (Finset (Fin 7))) :=
 
 theorem length_all70 : all70.length = 70 := rfl
 
-/-- Every code in `all70` is neither open-convex nor closed-convex, and has collapsible links. -/
+/-- The 70 codes are pairwise distinct (as codes on the labelled neurons; that they are
+also pairwise non-isomorphic under relabelling is checked in Python, not in Lean). -/
+theorem all70_nodup : all70.Nodup := by
+  decide +kernel
+
+/-- Every code in `all70` is a neural code (`∅ ∈ C`), satisfies `LocallyGoodC` (every nonempty
+non-codeword face of `Δ(C)` has a collapsible link), and is neither open-convex nor
+closed-convex. -/
 theorem all70_spec :
-    ∀ C ∈ all70, ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C ∧ LinksCollapsible C := by
+    ∀ C ∈ all70, IsNeuralCode C ∧ LocallyGoodC C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C := by
   intro C hC
   simp only [all70, List.mem_cons, List.not_mem_nil, or_false] at hC
   rcases hC with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
@@ -45,75 +53,145 @@ theorem all70_spec :
       | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
       | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
       | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-  · exact ⟨FiveFac399.not_convex.1, FiveFac399.not_convex.2, FiveFac399.linksCollapsible⟩
-  · exact ⟨FiveFac639.not_convex.1, FiveFac639.not_convex.2, FiveFac639.linksCollapsible⟩
-  · exact ⟨FiveFac681.not_convex.1, FiveFac681.not_convex.2, FiveFac681.linksCollapsible⟩
-  · exact ⟨SixFac935.not_convex.1, SixFac935.not_convex.2, SixFac935.linksCollapsible⟩
-  · exact ⟨SixFac948.not_convex.1, SixFac948.not_convex.2, SixFac948.linksCollapsible⟩
-  · exact ⟨SixFac952.not_convex.1, SixFac952.not_convex.2, SixFac952.linksCollapsible⟩
-  · exact ⟨SixFac1324.not_convex.1, SixFac1324.not_convex.2, SixFac1324.linksCollapsible⟩
-  · exact ⟨SixFac1328.not_convex.1, SixFac1328.not_convex.2, SixFac1328.linksCollapsible⟩
-  · exact ⟨SixFac1343.not_convex.1, SixFac1343.not_convex.2, SixFac1343.linksCollapsible⟩
-  · exact ⟨SixFac1358.not_convex.1, SixFac1358.not_convex.2, SixFac1358.linksCollapsible⟩
-  · exact ⟨SixFac1453.not_convex.1, SixFac1453.not_convex.2, SixFac1453.linksCollapsible⟩
-  · exact ⟨SixFac1455.not_convex.1, SixFac1455.not_convex.2, SixFac1455.linksCollapsible⟩
-  · exact ⟨SixFac1507.not_convex.1, SixFac1507.not_convex.2, SixFac1507.linksCollapsible⟩
-  · exact ⟨SixFac1522.not_convex.1, SixFac1522.not_convex.2, SixFac1522.linksCollapsible⟩
-  · exact ⟨SixFac1525.not_convex.1, SixFac1525.not_convex.2, SixFac1525.linksCollapsible⟩
-  · exact ⟨SixFac1528.not_convex.1, SixFac1528.not_convex.2, SixFac1528.linksCollapsible⟩
-  · exact ⟨SixFac1535.not_convex.1, SixFac1535.not_convex.2, SixFac1535.linksCollapsible⟩
-  · exact ⟨SixFac1536.not_convex.1, SixFac1536.not_convex.2, SixFac1536.linksCollapsible⟩
-  · exact ⟨SixFac1540.not_convex.1, SixFac1540.not_convex.2, SixFac1540.linksCollapsible⟩
-  · exact ⟨SixFac1562.not_convex.1, SixFac1562.not_convex.2, SixFac1562.linksCollapsible⟩
-  · exact ⟨SixFac1573.not_convex.1, SixFac1573.not_convex.2, SixFac1573.linksCollapsible⟩
-  · exact ⟨SevenFac1454.not_convex.1, SevenFac1454.not_convex.2, SevenFac1454.linksCollapsible⟩
-  · exact ⟨SevenFac1473.not_convex.1, SevenFac1473.not_convex.2, SevenFac1473.linksCollapsible⟩
-  · exact ⟨SevenFac1512.not_convex.1, SevenFac1512.not_convex.2, SevenFac1512.linksCollapsible⟩
-  · exact ⟨SevenFac1525.not_convex.1, SevenFac1525.not_convex.2, SevenFac1525.linksCollapsible⟩
-  · exact ⟨SevenFac1535.not_convex.1, SevenFac1535.not_convex.2, SevenFac1535.linksCollapsible⟩
-  · exact ⟨SevenFac1664.not_convex.1, SevenFac1664.not_convex.2, SevenFac1664.linksCollapsible⟩
-  · exact ⟨SevenFac1666.not_convex.1, SevenFac1666.not_convex.2, SevenFac1666.linksCollapsible⟩
-  · exact ⟨SevenFac1681.not_convex.1, SevenFac1681.not_convex.2, SevenFac1681.linksCollapsible⟩
-  · exact ⟨SevenFac1941.not_convex.1, SevenFac1941.not_convex.2, SevenFac1941.linksCollapsible⟩
-  · exact ⟨SevenFac1953.not_convex.1, SevenFac1953.not_convex.2, SevenFac1953.linksCollapsible⟩
-  · exact ⟨SevenFac1962.not_convex.1, SevenFac1962.not_convex.2, SevenFac1962.linksCollapsible⟩
-  · exact ⟨SevenFac1963.not_convex.1, SevenFac1963.not_convex.2, SevenFac1963.linksCollapsible⟩
-  · exact ⟨SevenFac1970.not_convex.1, SevenFac1970.not_convex.2, SevenFac1970.linksCollapsible⟩
-  · exact ⟨SevenFac2226.not_convex.1, SevenFac2226.not_convex.2, SevenFac2226.linksCollapsible⟩
-  · exact ⟨SevenFac2241.not_convex.1, SevenFac2241.not_convex.2, SevenFac2241.linksCollapsible⟩
-  · exact ⟨SevenFac2244.not_convex.1, SevenFac2244.not_convex.2, SevenFac2244.linksCollapsible⟩
-  · exact ⟨SevenFac2247.not_convex.1, SevenFac2247.not_convex.2, SevenFac2247.linksCollapsible⟩
-  · exact ⟨SevenFac2249.not_convex.1, SevenFac2249.not_convex.2, SevenFac2249.linksCollapsible⟩
-  · exact ⟨SevenFac2254.not_convex.1, SevenFac2254.not_convex.2, SevenFac2254.linksCollapsible⟩
-  · exact ⟨SevenFac2257.not_convex.1, SevenFac2257.not_convex.2, SevenFac2257.linksCollapsible⟩
-  · exact ⟨SevenFac2266.not_convex.1, SevenFac2266.not_convex.2, SevenFac2266.linksCollapsible⟩
-  · exact ⟨SevenFac2284.not_convex.1, SevenFac2284.not_convex.2, SevenFac2284.linksCollapsible⟩
-  · exact ⟨SevenFac2285.not_convex.1, SevenFac2285.not_convex.2, SevenFac2285.linksCollapsible⟩
-  · exact ⟨SevenFac2288.not_convex.1, SevenFac2288.not_convex.2, SevenFac2288.linksCollapsible⟩
-  · exact ⟨SevenFac2371.not_convex.1, SevenFac2371.not_convex.2, SevenFac2371.linksCollapsible⟩
-  · exact ⟨SevenFac2372.not_convex.1, SevenFac2372.not_convex.2, SevenFac2372.linksCollapsible⟩
-  · exact ⟨SevenFac2375.not_convex.1, SevenFac2375.not_convex.2, SevenFac2375.linksCollapsible⟩
-  · exact ⟨SevenFac2381.not_convex.1, SevenFac2381.not_convex.2, SevenFac2381.linksCollapsible⟩
-  · exact ⟨SevenFac2422.not_convex.1, SevenFac2422.not_convex.2, SevenFac2422.linksCollapsible⟩
-  · exact ⟨SevenFac2429.not_convex.1, SevenFac2429.not_convex.2, SevenFac2429.linksCollapsible⟩
-  · exact ⟨SevenFac2430.not_convex.1, SevenFac2430.not_convex.2, SevenFac2430.linksCollapsible⟩
-  · exact ⟨SevenFac2431.not_convex.1, SevenFac2431.not_convex.2, SevenFac2431.linksCollapsible⟩
-  · exact ⟨SevenFac2437.not_convex.1, SevenFac2437.not_convex.2, SevenFac2437.linksCollapsible⟩
-  · exact ⟨SevenFac2491.not_convex.1, SevenFac2491.not_convex.2, SevenFac2491.linksCollapsible⟩
-  · exact ⟨SevenFac2497.not_convex.1, SevenFac2497.not_convex.2, SevenFac2497.linksCollapsible⟩
-  · exact ⟨SevenFac2504.not_convex.1, SevenFac2504.not_convex.2, SevenFac2504.linksCollapsible⟩
-  · exact ⟨SevenFac2510.not_convex.1, SevenFac2510.not_convex.2, SevenFac2510.linksCollapsible⟩
-  · exact ⟨SevenFac2514.not_convex.1, SevenFac2514.not_convex.2, SevenFac2514.linksCollapsible⟩
-  · exact ⟨SevenFac2515.not_convex.1, SevenFac2515.not_convex.2, SevenFac2515.linksCollapsible⟩
-  · exact ⟨SevenFac2517.not_convex.1, SevenFac2517.not_convex.2, SevenFac2517.linksCollapsible⟩
-  · exact ⟨SevenFac2524.not_convex.1, SevenFac2524.not_convex.2, SevenFac2524.linksCollapsible⟩
-  · exact ⟨SevenFac2530.not_convex.1, SevenFac2530.not_convex.2, SevenFac2530.linksCollapsible⟩
-  · exact ⟨SevenFac2535.not_convex.1, SevenFac2535.not_convex.2, SevenFac2535.linksCollapsible⟩
-  · exact ⟨SevenFac2552.not_convex.1, SevenFac2552.not_convex.2, SevenFac2552.linksCollapsible⟩
-  · exact ⟨SevenFac2563.not_convex.1, SevenFac2563.not_convex.2, SevenFac2563.linksCollapsible⟩
-  · exact ⟨SevenFac2570.not_convex.1, SevenFac2570.not_convex.2, SevenFac2570.linksCollapsible⟩
-  · exact ⟨SevenFac2571.not_convex.1, SevenFac2571.not_convex.2, SevenFac2571.linksCollapsible⟩
-  · exact ⟨SevenFac2574.not_convex.1, SevenFac2574.not_convex.2, SevenFac2574.linksCollapsible⟩
-  · exact ⟨SevenFac2575.not_convex.1, SevenFac2575.not_convex.2, SevenFac2575.linksCollapsible⟩
+  · exact ⟨FiveFac399.isNeuralCode, FiveFac399.locallyGoodC, FiveFac399.not_convex.1,
+      FiveFac399.not_convex.2⟩
+  · exact ⟨FiveFac639.isNeuralCode, FiveFac639.locallyGoodC, FiveFac639.not_convex.1,
+      FiveFac639.not_convex.2⟩
+  · exact ⟨FiveFac681.isNeuralCode, FiveFac681.locallyGoodC, FiveFac681.not_convex.1,
+      FiveFac681.not_convex.2⟩
+  · exact ⟨SixFac935.isNeuralCode, SixFac935.locallyGoodC, SixFac935.not_convex.1,
+      SixFac935.not_convex.2⟩
+  · exact ⟨SixFac948.isNeuralCode, SixFac948.locallyGoodC, SixFac948.not_convex.1,
+      SixFac948.not_convex.2⟩
+  · exact ⟨SixFac952.isNeuralCode, SixFac952.locallyGoodC, SixFac952.not_convex.1,
+      SixFac952.not_convex.2⟩
+  · exact ⟨SixFac1324.isNeuralCode, SixFac1324.locallyGoodC, SixFac1324.not_convex.1,
+      SixFac1324.not_convex.2⟩
+  · exact ⟨SixFac1328.isNeuralCode, SixFac1328.locallyGoodC, SixFac1328.not_convex.1,
+      SixFac1328.not_convex.2⟩
+  · exact ⟨SixFac1343.isNeuralCode, SixFac1343.locallyGoodC, SixFac1343.not_convex.1,
+      SixFac1343.not_convex.2⟩
+  · exact ⟨SixFac1358.isNeuralCode, SixFac1358.locallyGoodC, SixFac1358.not_convex.1,
+      SixFac1358.not_convex.2⟩
+  · exact ⟨SixFac1453.isNeuralCode, SixFac1453.locallyGoodC, SixFac1453.not_convex.1,
+      SixFac1453.not_convex.2⟩
+  · exact ⟨SixFac1455.isNeuralCode, SixFac1455.locallyGoodC, SixFac1455.not_convex.1,
+      SixFac1455.not_convex.2⟩
+  · exact ⟨SixFac1507.isNeuralCode, SixFac1507.locallyGoodC, SixFac1507.not_convex.1,
+      SixFac1507.not_convex.2⟩
+  · exact ⟨SixFac1522.isNeuralCode, SixFac1522.locallyGoodC, SixFac1522.not_convex.1,
+      SixFac1522.not_convex.2⟩
+  · exact ⟨SixFac1525.isNeuralCode, SixFac1525.locallyGoodC, SixFac1525.not_convex.1,
+      SixFac1525.not_convex.2⟩
+  · exact ⟨SixFac1528.isNeuralCode, SixFac1528.locallyGoodC, SixFac1528.not_convex.1,
+      SixFac1528.not_convex.2⟩
+  · exact ⟨SixFac1535.isNeuralCode, SixFac1535.locallyGoodC, SixFac1535.not_convex.1,
+      SixFac1535.not_convex.2⟩
+  · exact ⟨SixFac1536.isNeuralCode, SixFac1536.locallyGoodC, SixFac1536.not_convex.1,
+      SixFac1536.not_convex.2⟩
+  · exact ⟨SixFac1540.isNeuralCode, SixFac1540.locallyGoodC, SixFac1540.not_convex.1,
+      SixFac1540.not_convex.2⟩
+  · exact ⟨SixFac1562.isNeuralCode, SixFac1562.locallyGoodC, SixFac1562.not_convex.1,
+      SixFac1562.not_convex.2⟩
+  · exact ⟨SixFac1573.isNeuralCode, SixFac1573.locallyGoodC, SixFac1573.not_convex.1,
+      SixFac1573.not_convex.2⟩
+  · exact ⟨SevenFac1454.isNeuralCode, SevenFac1454.locallyGoodC, SevenFac1454.not_convex.1,
+      SevenFac1454.not_convex.2⟩
+  · exact ⟨SevenFac1473.isNeuralCode, SevenFac1473.locallyGoodC, SevenFac1473.not_convex.1,
+      SevenFac1473.not_convex.2⟩
+  · exact ⟨SevenFac1512.isNeuralCode, SevenFac1512.locallyGoodC, SevenFac1512.not_convex.1,
+      SevenFac1512.not_convex.2⟩
+  · exact ⟨SevenFac1525.isNeuralCode, SevenFac1525.locallyGoodC, SevenFac1525.not_convex.1,
+      SevenFac1525.not_convex.2⟩
+  · exact ⟨SevenFac1535.isNeuralCode, SevenFac1535.locallyGoodC, SevenFac1535.not_convex.1,
+      SevenFac1535.not_convex.2⟩
+  · exact ⟨SevenFac1664.isNeuralCode, SevenFac1664.locallyGoodC, SevenFac1664.not_convex.1,
+      SevenFac1664.not_convex.2⟩
+  · exact ⟨SevenFac1666.isNeuralCode, SevenFac1666.locallyGoodC, SevenFac1666.not_convex.1,
+      SevenFac1666.not_convex.2⟩
+  · exact ⟨SevenFac1681.isNeuralCode, SevenFac1681.locallyGoodC, SevenFac1681.not_convex.1,
+      SevenFac1681.not_convex.2⟩
+  · exact ⟨SevenFac1941.isNeuralCode, SevenFac1941.locallyGoodC, SevenFac1941.not_convex.1,
+      SevenFac1941.not_convex.2⟩
+  · exact ⟨SevenFac1953.isNeuralCode, SevenFac1953.locallyGoodC, SevenFac1953.not_convex.1,
+      SevenFac1953.not_convex.2⟩
+  · exact ⟨SevenFac1962.isNeuralCode, SevenFac1962.locallyGoodC, SevenFac1962.not_convex.1,
+      SevenFac1962.not_convex.2⟩
+  · exact ⟨SevenFac1963.isNeuralCode, SevenFac1963.locallyGoodC, SevenFac1963.not_convex.1,
+      SevenFac1963.not_convex.2⟩
+  · exact ⟨SevenFac1970.isNeuralCode, SevenFac1970.locallyGoodC, SevenFac1970.not_convex.1,
+      SevenFac1970.not_convex.2⟩
+  · exact ⟨SevenFac2226.isNeuralCode, SevenFac2226.locallyGoodC, SevenFac2226.not_convex.1,
+      SevenFac2226.not_convex.2⟩
+  · exact ⟨SevenFac2241.isNeuralCode, SevenFac2241.locallyGoodC, SevenFac2241.not_convex.1,
+      SevenFac2241.not_convex.2⟩
+  · exact ⟨SevenFac2244.isNeuralCode, SevenFac2244.locallyGoodC, SevenFac2244.not_convex.1,
+      SevenFac2244.not_convex.2⟩
+  · exact ⟨SevenFac2247.isNeuralCode, SevenFac2247.locallyGoodC, SevenFac2247.not_convex.1,
+      SevenFac2247.not_convex.2⟩
+  · exact ⟨SevenFac2249.isNeuralCode, SevenFac2249.locallyGoodC, SevenFac2249.not_convex.1,
+      SevenFac2249.not_convex.2⟩
+  · exact ⟨SevenFac2254.isNeuralCode, SevenFac2254.locallyGoodC, SevenFac2254.not_convex.1,
+      SevenFac2254.not_convex.2⟩
+  · exact ⟨SevenFac2257.isNeuralCode, SevenFac2257.locallyGoodC, SevenFac2257.not_convex.1,
+      SevenFac2257.not_convex.2⟩
+  · exact ⟨SevenFac2266.isNeuralCode, SevenFac2266.locallyGoodC, SevenFac2266.not_convex.1,
+      SevenFac2266.not_convex.2⟩
+  · exact ⟨SevenFac2284.isNeuralCode, SevenFac2284.locallyGoodC, SevenFac2284.not_convex.1,
+      SevenFac2284.not_convex.2⟩
+  · exact ⟨SevenFac2285.isNeuralCode, SevenFac2285.locallyGoodC, SevenFac2285.not_convex.1,
+      SevenFac2285.not_convex.2⟩
+  · exact ⟨SevenFac2288.isNeuralCode, SevenFac2288.locallyGoodC, SevenFac2288.not_convex.1,
+      SevenFac2288.not_convex.2⟩
+  · exact ⟨SevenFac2371.isNeuralCode, SevenFac2371.locallyGoodC, SevenFac2371.not_convex.1,
+      SevenFac2371.not_convex.2⟩
+  · exact ⟨SevenFac2372.isNeuralCode, SevenFac2372.locallyGoodC, SevenFac2372.not_convex.1,
+      SevenFac2372.not_convex.2⟩
+  · exact ⟨SevenFac2375.isNeuralCode, SevenFac2375.locallyGoodC, SevenFac2375.not_convex.1,
+      SevenFac2375.not_convex.2⟩
+  · exact ⟨SevenFac2381.isNeuralCode, SevenFac2381.locallyGoodC, SevenFac2381.not_convex.1,
+      SevenFac2381.not_convex.2⟩
+  · exact ⟨SevenFac2422.isNeuralCode, SevenFac2422.locallyGoodC, SevenFac2422.not_convex.1,
+      SevenFac2422.not_convex.2⟩
+  · exact ⟨SevenFac2429.isNeuralCode, SevenFac2429.locallyGoodC, SevenFac2429.not_convex.1,
+      SevenFac2429.not_convex.2⟩
+  · exact ⟨SevenFac2430.isNeuralCode, SevenFac2430.locallyGoodC, SevenFac2430.not_convex.1,
+      SevenFac2430.not_convex.2⟩
+  · exact ⟨SevenFac2431.isNeuralCode, SevenFac2431.locallyGoodC, SevenFac2431.not_convex.1,
+      SevenFac2431.not_convex.2⟩
+  · exact ⟨SevenFac2437.isNeuralCode, SevenFac2437.locallyGoodC, SevenFac2437.not_convex.1,
+      SevenFac2437.not_convex.2⟩
+  · exact ⟨SevenFac2491.isNeuralCode, SevenFac2491.locallyGoodC, SevenFac2491.not_convex.1,
+      SevenFac2491.not_convex.2⟩
+  · exact ⟨SevenFac2497.isNeuralCode, SevenFac2497.locallyGoodC, SevenFac2497.not_convex.1,
+      SevenFac2497.not_convex.2⟩
+  · exact ⟨SevenFac2504.isNeuralCode, SevenFac2504.locallyGoodC, SevenFac2504.not_convex.1,
+      SevenFac2504.not_convex.2⟩
+  · exact ⟨SevenFac2510.isNeuralCode, SevenFac2510.locallyGoodC, SevenFac2510.not_convex.1,
+      SevenFac2510.not_convex.2⟩
+  · exact ⟨SevenFac2514.isNeuralCode, SevenFac2514.locallyGoodC, SevenFac2514.not_convex.1,
+      SevenFac2514.not_convex.2⟩
+  · exact ⟨SevenFac2515.isNeuralCode, SevenFac2515.locallyGoodC, SevenFac2515.not_convex.1,
+      SevenFac2515.not_convex.2⟩
+  · exact ⟨SevenFac2517.isNeuralCode, SevenFac2517.locallyGoodC, SevenFac2517.not_convex.1,
+      SevenFac2517.not_convex.2⟩
+  · exact ⟨SevenFac2524.isNeuralCode, SevenFac2524.locallyGoodC, SevenFac2524.not_convex.1,
+      SevenFac2524.not_convex.2⟩
+  · exact ⟨SevenFac2530.isNeuralCode, SevenFac2530.locallyGoodC, SevenFac2530.not_convex.1,
+      SevenFac2530.not_convex.2⟩
+  · exact ⟨SevenFac2535.isNeuralCode, SevenFac2535.locallyGoodC, SevenFac2535.not_convex.1,
+      SevenFac2535.not_convex.2⟩
+  · exact ⟨SevenFac2552.isNeuralCode, SevenFac2552.locallyGoodC, SevenFac2552.not_convex.1,
+      SevenFac2552.not_convex.2⟩
+  · exact ⟨SevenFac2563.isNeuralCode, SevenFac2563.locallyGoodC, SevenFac2563.not_convex.1,
+      SevenFac2563.not_convex.2⟩
+  · exact ⟨SevenFac2570.isNeuralCode, SevenFac2570.locallyGoodC, SevenFac2570.not_convex.1,
+      SevenFac2570.not_convex.2⟩
+  · exact ⟨SevenFac2571.isNeuralCode, SevenFac2571.locallyGoodC, SevenFac2571.not_convex.1,
+      SevenFac2571.not_convex.2⟩
+  · exact ⟨SevenFac2574.isNeuralCode, SevenFac2574.locallyGoodC, SevenFac2574.not_convex.1,
+      SevenFac2574.not_convex.2⟩
+  · exact ⟨SevenFac2575.isNeuralCode, SevenFac2575.locallyGoodC, SevenFac2575.not_convex.1,
+      SevenFac2575.not_convex.2⟩
 
 end RimRule.Rim70

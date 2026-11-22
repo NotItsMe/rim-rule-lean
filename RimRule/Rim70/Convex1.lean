@@ -11,7 +11,8 @@ set_option linter.style.header false
 
 For each code, `decide +kernel` checks every hypothesis of Theorem 1(b) with its open roles and
 every hypothesis of Theorem 1(a) with its closed roles (`hyps`). Then `theorem1b` and `theorem1a`
-give `not_convex`: the code is neither open-convex nor closed-convex.
+give `not_convex`: the code is neither open-convex nor closed-convex. `isNeuralCode` checks
+`∅ ∈ C`.
 -/
 
 namespace RimRule.Rim70
@@ -23,12 +24,18 @@ theorem FiveFac399.hyps :
 theorem FiveFac399.not_convex : ¬ IsOpenConvex FiveFac399 ∧ ¬ IsClosedConvex FiveFac399 :=
   not_convex_of_hyps FiveFac399.hyps
 
+theorem FiveFac399.isNeuralCode : IsNeuralCode FiveFac399 := by
+  decide +kernel
+
 theorem FiveFac639.hyps :
     Hyps1b FiveFac639 FiveFac639.openRoles ∧ Hyps1a FiveFac639 FiveFac639.closedRoles := by
   decide +kernel
 
 theorem FiveFac639.not_convex : ¬ IsOpenConvex FiveFac639 ∧ ¬ IsClosedConvex FiveFac639 :=
   not_convex_of_hyps FiveFac639.hyps
+
+theorem FiveFac639.isNeuralCode : IsNeuralCode FiveFac639 := by
+  decide +kernel
 
 theorem FiveFac681.hyps :
     Hyps1b FiveFac681 FiveFac681.openRoles ∧ Hyps1a FiveFac681 FiveFac681.closedRoles := by
@@ -37,12 +44,18 @@ theorem FiveFac681.hyps :
 theorem FiveFac681.not_convex : ¬ IsOpenConvex FiveFac681 ∧ ¬ IsClosedConvex FiveFac681 :=
   not_convex_of_hyps FiveFac681.hyps
 
+theorem FiveFac681.isNeuralCode : IsNeuralCode FiveFac681 := by
+  decide +kernel
+
 theorem SixFac935.hyps :
     Hyps1b SixFac935 SixFac935.openRoles ∧ Hyps1a SixFac935 SixFac935.closedRoles := by
   decide +kernel
 
 theorem SixFac935.not_convex : ¬ IsOpenConvex SixFac935 ∧ ¬ IsClosedConvex SixFac935 :=
   not_convex_of_hyps SixFac935.hyps
+
+theorem SixFac935.isNeuralCode : IsNeuralCode SixFac935 := by
+  decide +kernel
 
 theorem SixFac948.hyps :
     Hyps1b SixFac948 SixFac948.openRoles ∧ Hyps1a SixFac948 SixFac948.closedRoles := by
@@ -51,12 +64,18 @@ theorem SixFac948.hyps :
 theorem SixFac948.not_convex : ¬ IsOpenConvex SixFac948 ∧ ¬ IsClosedConvex SixFac948 :=
   not_convex_of_hyps SixFac948.hyps
 
+theorem SixFac948.isNeuralCode : IsNeuralCode SixFac948 := by
+  decide +kernel
+
 theorem SixFac952.hyps :
     Hyps1b SixFac952 SixFac952.openRoles ∧ Hyps1a SixFac952 SixFac952.closedRoles := by
   decide +kernel
 
 theorem SixFac952.not_convex : ¬ IsOpenConvex SixFac952 ∧ ¬ IsClosedConvex SixFac952 :=
   not_convex_of_hyps SixFac952.hyps
+
+theorem SixFac952.isNeuralCode : IsNeuralCode SixFac952 := by
+  decide +kernel
 
 theorem SixFac1324.hyps :
     Hyps1b SixFac1324 SixFac1324.openRoles ∧ Hyps1a SixFac1324 SixFac1324.closedRoles := by
@@ -65,12 +84,18 @@ theorem SixFac1324.hyps :
 theorem SixFac1324.not_convex : ¬ IsOpenConvex SixFac1324 ∧ ¬ IsClosedConvex SixFac1324 :=
   not_convex_of_hyps SixFac1324.hyps
 
+theorem SixFac1324.isNeuralCode : IsNeuralCode SixFac1324 := by
+  decide +kernel
+
 theorem SixFac1328.hyps :
     Hyps1b SixFac1328 SixFac1328.openRoles ∧ Hyps1a SixFac1328 SixFac1328.closedRoles := by
   decide +kernel
 
 theorem SixFac1328.not_convex : ¬ IsOpenConvex SixFac1328 ∧ ¬ IsClosedConvex SixFac1328 :=
   not_convex_of_hyps SixFac1328.hyps
+
+theorem SixFac1328.isNeuralCode : IsNeuralCode SixFac1328 := by
+  decide +kernel
 
 theorem SixFac1343.hyps :
     Hyps1b SixFac1343 SixFac1343.openRoles ∧ Hyps1a SixFac1343 SixFac1343.closedRoles := by
@@ -79,12 +104,18 @@ theorem SixFac1343.hyps :
 theorem SixFac1343.not_convex : ¬ IsOpenConvex SixFac1343 ∧ ¬ IsClosedConvex SixFac1343 :=
   not_convex_of_hyps SixFac1343.hyps
 
+theorem SixFac1343.isNeuralCode : IsNeuralCode SixFac1343 := by
+  decide +kernel
+
 theorem SixFac1358.hyps :
     Hyps1b SixFac1358 SixFac1358.openRoles ∧ Hyps1a SixFac1358 SixFac1358.closedRoles := by
   decide +kernel
 
 theorem SixFac1358.not_convex : ¬ IsOpenConvex SixFac1358 ∧ ¬ IsClosedConvex SixFac1358 :=
   not_convex_of_hyps SixFac1358.hyps
+
+theorem SixFac1358.isNeuralCode : IsNeuralCode SixFac1358 := by
+  decide +kernel
 
 theorem SixFac1453.hyps :
     Hyps1b SixFac1453 SixFac1453.openRoles ∧ Hyps1a SixFac1453 SixFac1453.closedRoles := by
@@ -93,12 +124,18 @@ theorem SixFac1453.hyps :
 theorem SixFac1453.not_convex : ¬ IsOpenConvex SixFac1453 ∧ ¬ IsClosedConvex SixFac1453 :=
   not_convex_of_hyps SixFac1453.hyps
 
+theorem SixFac1453.isNeuralCode : IsNeuralCode SixFac1453 := by
+  decide +kernel
+
 theorem SixFac1455.hyps :
     Hyps1b SixFac1455 SixFac1455.openRoles ∧ Hyps1a SixFac1455 SixFac1455.closedRoles := by
   decide +kernel
 
 theorem SixFac1455.not_convex : ¬ IsOpenConvex SixFac1455 ∧ ¬ IsClosedConvex SixFac1455 :=
   not_convex_of_hyps SixFac1455.hyps
+
+theorem SixFac1455.isNeuralCode : IsNeuralCode SixFac1455 := by
+  decide +kernel
 
 theorem SixFac1507.hyps :
     Hyps1b SixFac1507 SixFac1507.openRoles ∧ Hyps1a SixFac1507 SixFac1507.closedRoles := by
@@ -107,12 +144,18 @@ theorem SixFac1507.hyps :
 theorem SixFac1507.not_convex : ¬ IsOpenConvex SixFac1507 ∧ ¬ IsClosedConvex SixFac1507 :=
   not_convex_of_hyps SixFac1507.hyps
 
+theorem SixFac1507.isNeuralCode : IsNeuralCode SixFac1507 := by
+  decide +kernel
+
 theorem SixFac1522.hyps :
     Hyps1b SixFac1522 SixFac1522.openRoles ∧ Hyps1a SixFac1522 SixFac1522.closedRoles := by
   decide +kernel
 
 theorem SixFac1522.not_convex : ¬ IsOpenConvex SixFac1522 ∧ ¬ IsClosedConvex SixFac1522 :=
   not_convex_of_hyps SixFac1522.hyps
+
+theorem SixFac1522.isNeuralCode : IsNeuralCode SixFac1522 := by
+  decide +kernel
 
 theorem SixFac1525.hyps :
     Hyps1b SixFac1525 SixFac1525.openRoles ∧ Hyps1a SixFac1525 SixFac1525.closedRoles := by
@@ -121,12 +164,18 @@ theorem SixFac1525.hyps :
 theorem SixFac1525.not_convex : ¬ IsOpenConvex SixFac1525 ∧ ¬ IsClosedConvex SixFac1525 :=
   not_convex_of_hyps SixFac1525.hyps
 
+theorem SixFac1525.isNeuralCode : IsNeuralCode SixFac1525 := by
+  decide +kernel
+
 theorem SixFac1528.hyps :
     Hyps1b SixFac1528 SixFac1528.openRoles ∧ Hyps1a SixFac1528 SixFac1528.closedRoles := by
   decide +kernel
 
 theorem SixFac1528.not_convex : ¬ IsOpenConvex SixFac1528 ∧ ¬ IsClosedConvex SixFac1528 :=
   not_convex_of_hyps SixFac1528.hyps
+
+theorem SixFac1528.isNeuralCode : IsNeuralCode SixFac1528 := by
+  decide +kernel
 
 theorem SixFac1535.hyps :
     Hyps1b SixFac1535 SixFac1535.openRoles ∧ Hyps1a SixFac1535 SixFac1535.closedRoles := by
@@ -135,12 +184,18 @@ theorem SixFac1535.hyps :
 theorem SixFac1535.not_convex : ¬ IsOpenConvex SixFac1535 ∧ ¬ IsClosedConvex SixFac1535 :=
   not_convex_of_hyps SixFac1535.hyps
 
+theorem SixFac1535.isNeuralCode : IsNeuralCode SixFac1535 := by
+  decide +kernel
+
 theorem SixFac1536.hyps :
     Hyps1b SixFac1536 SixFac1536.openRoles ∧ Hyps1a SixFac1536 SixFac1536.closedRoles := by
   decide +kernel
 
 theorem SixFac1536.not_convex : ¬ IsOpenConvex SixFac1536 ∧ ¬ IsClosedConvex SixFac1536 :=
   not_convex_of_hyps SixFac1536.hyps
+
+theorem SixFac1536.isNeuralCode : IsNeuralCode SixFac1536 := by
+  decide +kernel
 
 theorem SixFac1540.hyps :
     Hyps1b SixFac1540 SixFac1540.openRoles ∧ Hyps1a SixFac1540 SixFac1540.closedRoles := by
@@ -149,12 +204,18 @@ theorem SixFac1540.hyps :
 theorem SixFac1540.not_convex : ¬ IsOpenConvex SixFac1540 ∧ ¬ IsClosedConvex SixFac1540 :=
   not_convex_of_hyps SixFac1540.hyps
 
+theorem SixFac1540.isNeuralCode : IsNeuralCode SixFac1540 := by
+  decide +kernel
+
 theorem SixFac1562.hyps :
     Hyps1b SixFac1562 SixFac1562.openRoles ∧ Hyps1a SixFac1562 SixFac1562.closedRoles := by
   decide +kernel
 
 theorem SixFac1562.not_convex : ¬ IsOpenConvex SixFac1562 ∧ ¬ IsClosedConvex SixFac1562 :=
   not_convex_of_hyps SixFac1562.hyps
+
+theorem SixFac1562.isNeuralCode : IsNeuralCode SixFac1562 := by
+  decide +kernel
 
 theorem SixFac1573.hyps :
     Hyps1b SixFac1573 SixFac1573.openRoles ∧ Hyps1a SixFac1573 SixFac1573.closedRoles := by
@@ -163,12 +224,18 @@ theorem SixFac1573.hyps :
 theorem SixFac1573.not_convex : ¬ IsOpenConvex SixFac1573 ∧ ¬ IsClosedConvex SixFac1573 :=
   not_convex_of_hyps SixFac1573.hyps
 
+theorem SixFac1573.isNeuralCode : IsNeuralCode SixFac1573 := by
+  decide +kernel
+
 theorem SevenFac1454.hyps :
     Hyps1b SevenFac1454 SevenFac1454.openRoles ∧ Hyps1a SevenFac1454 SevenFac1454.closedRoles := by
   decide +kernel
 
 theorem SevenFac1454.not_convex : ¬ IsOpenConvex SevenFac1454 ∧ ¬ IsClosedConvex SevenFac1454 :=
   not_convex_of_hyps SevenFac1454.hyps
+
+theorem SevenFac1454.isNeuralCode : IsNeuralCode SevenFac1454 := by
+  decide +kernel
 
 theorem SevenFac1473.hyps :
     Hyps1b SevenFac1473 SevenFac1473.openRoles ∧ Hyps1a SevenFac1473 SevenFac1473.closedRoles := by
@@ -177,12 +244,18 @@ theorem SevenFac1473.hyps :
 theorem SevenFac1473.not_convex : ¬ IsOpenConvex SevenFac1473 ∧ ¬ IsClosedConvex SevenFac1473 :=
   not_convex_of_hyps SevenFac1473.hyps
 
+theorem SevenFac1473.isNeuralCode : IsNeuralCode SevenFac1473 := by
+  decide +kernel
+
 theorem SevenFac1512.hyps :
     Hyps1b SevenFac1512 SevenFac1512.openRoles ∧ Hyps1a SevenFac1512 SevenFac1512.closedRoles := by
   decide +kernel
 
 theorem SevenFac1512.not_convex : ¬ IsOpenConvex SevenFac1512 ∧ ¬ IsClosedConvex SevenFac1512 :=
   not_convex_of_hyps SevenFac1512.hyps
+
+theorem SevenFac1512.isNeuralCode : IsNeuralCode SevenFac1512 := by
+  decide +kernel
 
 theorem SevenFac1525.hyps :
     Hyps1b SevenFac1525 SevenFac1525.openRoles ∧ Hyps1a SevenFac1525 SevenFac1525.closedRoles := by
@@ -191,12 +264,18 @@ theorem SevenFac1525.hyps :
 theorem SevenFac1525.not_convex : ¬ IsOpenConvex SevenFac1525 ∧ ¬ IsClosedConvex SevenFac1525 :=
   not_convex_of_hyps SevenFac1525.hyps
 
+theorem SevenFac1525.isNeuralCode : IsNeuralCode SevenFac1525 := by
+  decide +kernel
+
 theorem SevenFac1535.hyps :
     Hyps1b SevenFac1535 SevenFac1535.openRoles ∧ Hyps1a SevenFac1535 SevenFac1535.closedRoles := by
   decide +kernel
 
 theorem SevenFac1535.not_convex : ¬ IsOpenConvex SevenFac1535 ∧ ¬ IsClosedConvex SevenFac1535 :=
   not_convex_of_hyps SevenFac1535.hyps
+
+theorem SevenFac1535.isNeuralCode : IsNeuralCode SevenFac1535 := by
+  decide +kernel
 
 theorem SevenFac1664.hyps :
     Hyps1b SevenFac1664 SevenFac1664.openRoles ∧ Hyps1a SevenFac1664 SevenFac1664.closedRoles := by
@@ -205,12 +284,18 @@ theorem SevenFac1664.hyps :
 theorem SevenFac1664.not_convex : ¬ IsOpenConvex SevenFac1664 ∧ ¬ IsClosedConvex SevenFac1664 :=
   not_convex_of_hyps SevenFac1664.hyps
 
+theorem SevenFac1664.isNeuralCode : IsNeuralCode SevenFac1664 := by
+  decide +kernel
+
 theorem SevenFac1666.hyps :
     Hyps1b SevenFac1666 SevenFac1666.openRoles ∧ Hyps1a SevenFac1666 SevenFac1666.closedRoles := by
   decide +kernel
 
 theorem SevenFac1666.not_convex : ¬ IsOpenConvex SevenFac1666 ∧ ¬ IsClosedConvex SevenFac1666 :=
   not_convex_of_hyps SevenFac1666.hyps
+
+theorem SevenFac1666.isNeuralCode : IsNeuralCode SevenFac1666 := by
+  decide +kernel
 
 theorem SevenFac1681.hyps :
     Hyps1b SevenFac1681 SevenFac1681.openRoles ∧ Hyps1a SevenFac1681 SevenFac1681.closedRoles := by
@@ -219,12 +304,18 @@ theorem SevenFac1681.hyps :
 theorem SevenFac1681.not_convex : ¬ IsOpenConvex SevenFac1681 ∧ ¬ IsClosedConvex SevenFac1681 :=
   not_convex_of_hyps SevenFac1681.hyps
 
+theorem SevenFac1681.isNeuralCode : IsNeuralCode SevenFac1681 := by
+  decide +kernel
+
 theorem SevenFac1941.hyps :
     Hyps1b SevenFac1941 SevenFac1941.openRoles ∧ Hyps1a SevenFac1941 SevenFac1941.closedRoles := by
   decide +kernel
 
 theorem SevenFac1941.not_convex : ¬ IsOpenConvex SevenFac1941 ∧ ¬ IsClosedConvex SevenFac1941 :=
   not_convex_of_hyps SevenFac1941.hyps
+
+theorem SevenFac1941.isNeuralCode : IsNeuralCode SevenFac1941 := by
+  decide +kernel
 
 theorem SevenFac1953.hyps :
     Hyps1b SevenFac1953 SevenFac1953.openRoles ∧ Hyps1a SevenFac1953 SevenFac1953.closedRoles := by
@@ -233,12 +324,18 @@ theorem SevenFac1953.hyps :
 theorem SevenFac1953.not_convex : ¬ IsOpenConvex SevenFac1953 ∧ ¬ IsClosedConvex SevenFac1953 :=
   not_convex_of_hyps SevenFac1953.hyps
 
+theorem SevenFac1953.isNeuralCode : IsNeuralCode SevenFac1953 := by
+  decide +kernel
+
 theorem SevenFac1962.hyps :
     Hyps1b SevenFac1962 SevenFac1962.openRoles ∧ Hyps1a SevenFac1962 SevenFac1962.closedRoles := by
   decide +kernel
 
 theorem SevenFac1962.not_convex : ¬ IsOpenConvex SevenFac1962 ∧ ¬ IsClosedConvex SevenFac1962 :=
   not_convex_of_hyps SevenFac1962.hyps
+
+theorem SevenFac1962.isNeuralCode : IsNeuralCode SevenFac1962 := by
+  decide +kernel
 
 theorem SevenFac1963.hyps :
     Hyps1b SevenFac1963 SevenFac1963.openRoles ∧ Hyps1a SevenFac1963 SevenFac1963.closedRoles := by
@@ -247,6 +344,9 @@ theorem SevenFac1963.hyps :
 theorem SevenFac1963.not_convex : ¬ IsOpenConvex SevenFac1963 ∧ ¬ IsClosedConvex SevenFac1963 :=
   not_convex_of_hyps SevenFac1963.hyps
 
+theorem SevenFac1963.isNeuralCode : IsNeuralCode SevenFac1963 := by
+  decide +kernel
+
 theorem SevenFac1970.hyps :
     Hyps1b SevenFac1970 SevenFac1970.openRoles ∧ Hyps1a SevenFac1970 SevenFac1970.closedRoles := by
   decide +kernel
@@ -254,11 +354,17 @@ theorem SevenFac1970.hyps :
 theorem SevenFac1970.not_convex : ¬ IsOpenConvex SevenFac1970 ∧ ¬ IsClosedConvex SevenFac1970 :=
   not_convex_of_hyps SevenFac1970.hyps
 
+theorem SevenFac1970.isNeuralCode : IsNeuralCode SevenFac1970 := by
+  decide +kernel
+
 theorem SevenFac2226.hyps :
     Hyps1b SevenFac2226 SevenFac2226.openRoles ∧ Hyps1a SevenFac2226 SevenFac2226.closedRoles := by
   decide +kernel
 
 theorem SevenFac2226.not_convex : ¬ IsOpenConvex SevenFac2226 ∧ ¬ IsClosedConvex SevenFac2226 :=
   not_convex_of_hyps SevenFac2226.hyps
+
+theorem SevenFac2226.isNeuralCode : IsNeuralCode SevenFac2226 := by
+  decide +kernel
 
 end RimRule.Rim70

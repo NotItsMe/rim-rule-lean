@@ -8,8 +8,8 @@ set_option linter.style.header false
 
 Non-vacuity check: the code C5-033 satisfies every hypothesis of Theorem 1(b)
 (and F_B, so also every hypothesis of Theorem 1(a)) with roles
-`(i,j,k,l,m,p) = (4,5,1,2,3,6)`. Every fact is checked by `decide` (kernel evaluation;
-no `native_decide`).
+`(i,j,k,l,m,p) = (4,5,1,2,3,6)`. Every fact is checked by `decide +kernel` (kernel
+evaluation only; no compiled-code evaluation, so `#print axioms` stays standard).
 
 Data source: `data/C5-033.md`, copied from github.com/NotItsMe/neural-codes-96,
 `data/codes.json`, id C5-033. Neurons keep their paper labels 1..6: we use `Fin 7`

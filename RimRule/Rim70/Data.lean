@@ -8,10 +8,12 @@ set_option linter.style.header false
 /-!
 # Stage 8 data: 70 codes that Theorem 1 rules out
 
-Generated from `data/rim70.json` (source: WheelsCode, github.com/aruysdeperez/WheelsCode,
-`{Five,Six,Seven}Fac_WIRE_WHEEL_6.sage`, filtered to solved = 0, wheel = 0, reduced = 1,
-indecomposable = 1). Each code uses the neurons 1..6; as in `Census.lean` we use `Fin 7` and
-leave neuron 0 unused. Each code comes with roles `(i,j,k,l,m,p)` for Theorem 1(b) (`openRoles`)
+Generated from `data/rim70.json`. Source: WheelsCode, github.com/aruysdeperez/WheelsCode,
+`{Five,Six,Seven}Fac_WIRE_WHEEL_6.sage`. The filter solved = 0, wheel = 0, reduced = 1,
+indecomposable = 1 gives 1,800 codes (96 + 535 + 1,169). These 70 are the ones among them
+for which role assignments satisfying the hypotheses of both Theorem 1(b) and Theorem 1(a)
+were found. Each code uses the neurons 1..6; as in `Census.lean` we use `Fin 7` and leave
+neuron 0 unused. Each code comes with roles `(i,j,k,l,m,p)` for Theorem 1(b) (`openRoles`)
 and for Theorem 1(a) (`closedRoles`), copied from the JSON.
 -/
 
