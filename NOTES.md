@@ -42,6 +42,11 @@
 - mathlib's `openSegment ℝ a a = {a}` (not empty). That is why r = a needs no special case.
 - `exists_point_of_mem_code`: c ∈ C ⇒ some x ∈ X has codeword c. Stage 6 will use it to get a, b, z from H5′, H6, H7.
 
+## Main theorem (Stage 6), done
+- `Theorem1b` is a `def … : Prop`, so `theorem theorem1b : Theorem1b` starts with `intro` (it unfolds by definition).
+- The points: `obtain ⟨a, -, rfl⟩ := exists_point_of_mem_code hR hca` replaces the codeword by `codeword U a`, then `mem_inter_iff_subset_codeword` gives a ∈ U_σ directly. x ∈ X isn't needed here; Cases A and B recover it from σ_i ≠ ∅ / σ_j ≠ ∅ / σ_m ≠ ∅.
+- The Case B hypothesis is literally `¬` of the Case A one, so `by_cases` needs no rewriting.
+
 ## Ideas for later stages
 - **Rockafellar 6.5 (Stage 3)** needs only the ⊇ direction, and it holds in any real topological vector space. Take w ∈ U ∩ V and x ∈ cl U ∩ cl V. Then [w, x) ⊆ U ∩ V by `Convex.openSegment_interior_closure_subset_interior` (applied to U and to V), and x is a limit of points of [w, x).
 - **Case B lowest point:** instead of an affine height h on aff T, we could minimise the z-barycentric weight γ over the compact set {(α,β,γ) ∈ stdSimplex : αa+βb+γz ∈ cl W}. That avoids building h and may avoid needing non-degeneracy.

@@ -4,6 +4,21 @@ One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Le
 
 Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-21: Stage 6 (Theorem 1(b) assembled, and C5-033 is not open-convex)
+
+**Done.** `RimRule/Main.lean` (52 lines) compiles with `lake build`, on the first attempt.
+- `theorem1b : Theorem1b`. It proves the statement in `Defs.lean` exactly as written; `Defs.lean` is unchanged. The proof unpacks `IsOpenConvex`, gets a, b, z from H5′, H6, H7 with `exists_point_of_mem_code` and `mem_inter_iff_subset_codeword`, then splits with `by_cases` on the overlap: Case A (`caseA_realSpace`) or Case B (`caseB_realSpace`).
+- `C033_not_isOpenConvex : ¬ IsOpenConvex Census.C033`. The corollary: Theorem 1(b) applied to the census facts `Census.theorem1b_hyps`, roles (4,5,1,2,3,6).
+- `#print axioms` on both gives exactly [propext, Classical.choice, Quot.sound]. Checked with `lake env lean` on a scratch file (`import RimRule.Main`), so nothing extra lives in the library.
+- No `sorry`, no `admit`, no `native_decide` (grep finds only the doc comment in Census.lean).
+- `Main.lean` builds in about 78 s. `RimRule.lean` now imports `RimRule.Main`.
+
+**Line count:** Defs 185, Census 89, Rockafellar 69, CaseA 170, CaseB 256, Main 52. Total 821.
+
+**Next: Stage 7 (optional), Theorem 1(a), the closed half.** Prove `Theorem1a` from `Defs.lean`. A further corollary, "C5-033 is not closed-convex", would then follow from `Census.theorem1a_hyps` the same way.
+
+**Blockers:** none.
+
 ## 2026-11-21: Stage 5 (Case B, the lowest-point case of Theorem 1(b))
 
 **Git first.** Stages 0–4 are committed, one commit per stage. Each commit has the `RimRule.lean` imports and PROGRESS entries of its stage. They're pushed to the new private repo `NotItsMe/rim-rule-lean`.
