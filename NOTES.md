@@ -47,6 +47,12 @@
 - The points: `obtain ⟨a, -, rfl⟩ := exists_point_of_mem_code hR hca` replaces the codeword by `codeword U a`, then `mem_inter_iff_subset_codeword` gives a ∈ U_σ directly. x ∈ X isn't needed here; Cases A and B recover it from σ_i ≠ ∅ / σ_j ≠ ∅ / σ_m ≠ ∅.
 - The Case B hypothesis is literally `¬` of the Case A one, so `by_cases` needs no rewriting.
 
+## CI failure (2026-11-22), fixed
+- **Symptom:** GitHub Actions "Lean Action CI" failed on the Stage 4 and Stage 5 pushes (runs 44981470885, 44982072987) after about 16 min.
+- **The Lean build was fine.** The `leanprover/lean-action@v1` step (`lake build`) passed both times. The proofs were never the problem.
+- **Exact error:** in the template's `leanprover-community/docgen-action@v1` step, doc-gen4 builds HTML docs for every dependency (5,482 targets, mostly mathlib). It ended with `error: resource exhausted (error code: 12, not enough memory)` on the `*:srcUri.github` targets (mathlib, batteries, aesop, Qq, importGraph, …), then `Process completed with exit code 1`. Before that, many `WARNING: Failed to calculate equational lemmas … maximum number of heartbeats` lines appeared, which are harmless.
+- **Fix:** removed the docgen step from `.github/workflows/lean_action_ci.yml`, along with the `pages: write` / `id-token: write` permissions it needed. The repo is private and GitHub Pages is off (the API returns 404), so the docs had nowhere to deploy anyway. CI now runs only `lake build`. No `.lean` file changed.
+
 ## Ideas for later stages
 - **Rockafellar 6.5 (Stage 3)** needs only the ⊇ direction, and it holds in any real topological vector space. Take w ∈ U ∩ V and x ∈ cl U ∩ cl V. Then [w, x) ⊆ U ∩ V by `Convex.openSegment_interior_closure_subset_interior` (applied to U and to V), and x is a limit of points of [w, x).
 - **Case B lowest point:** instead of an affine height h on aff T, we could minimise the z-barycentric weight γ over the compact set {(α,β,γ) ∈ stdSimplex : αa+βb+γz ∈ cl W}. That avoids building h and may avoid needing non-degeneracy.
