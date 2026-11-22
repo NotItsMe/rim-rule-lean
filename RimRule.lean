@@ -5,3 +5,5 @@ import RimRule.CaseA
 import RimRule.CaseB
 import RimRule.Main
 import RimRule.Theorem1a
+import RimRule.Complex
+import RimRule.Rim70.Summary

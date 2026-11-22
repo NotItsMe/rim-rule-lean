@@ -54,6 +54,15 @@
 - `exists_lowest` from Case B works unchanged with F = V_i ∩ V_j (already closed, no closure needed). Closed Case B uses `Convex.openSegment_subset` instead of Rockafellar 6.1.
 - Mathlib's `show` linter complains when `show` changes the goal (e.g. unfolding `t ∈ f ⁻¹' s` to `f t ∈ s`); use `change`.
 
+## Stage 8 (70 codes, links), done
+- **Kernel cost of Finset operations.** These are fine in `decide +kernel`: filters over `Finset.univ : Finset (Finset (Fin 7))` (128 sets), membership, `⊆`, `Disjoint`, `card`, `erase`, and Finset literals of about 26 codewords. This is very slow: quantifying over `(maximal C).powerset` and taking `F.inf id` (more than 300 s for one code, though each piece alone is fast). Avoid powerset/inf in anything the kernel evaluates; use `hull C σ = univ.filter (fun x => ∀ M ∈ maximal C, σ ⊆ M → x ∈ M)` instead.
+- **Instance search limit.** `Decidable` of a large `A ∧ B` failed even though `Decidable A` and `Decidable B` were each found. Fix: name the two halves as separate defs, give each an instance, and build the conjunction with `inferInstanceAs`.
+- **Recursive `Decidable` instance** for `CollapsesTo` (defined by pattern matching on the step list): write `instance decCollapsesTo : ∀ K steps L, Decidable (...)` by the same pattern match, using `have := decCollapsesTo ...` for the recursive call. The kernel reduces it fine.
+- **Lemmas used:** `Finset.le_inf`, `Finset.inf_le` (Finset ≤ is ⊆), `Finset.singleton_subset_iff`, `Finset.exists_max_image`, `Finset.eq_of_subset_of_card_le`.
+- **Memory:** four Lean processes doing heavy `decide +kernel` at once crashed on this 8 GB PC (exit code 0xC0000409, no message). Chaining the chunk files by imports limits it to two at once.
+- **The JSON's "780 faces"** counts (family, face) pairs; there are 278 distinct faces.
+- **Writing Python from the Bash tool:** `\n` inside a quoted heredoc sometimes reached the file as a real newline and broke string literals. Edit the generator with the Edit tool instead.
+
 ## CI failure (2026-11-22), fixed
 - **Symptom:** GitHub Actions "Lean Action CI" failed on the Stage 4 and Stage 5 pushes (runs 44981470885, 44982072987) after about 16 min.
 - **The Lean build was fine.** The `leanprover/lean-action@v1` step (`lake build`) passed both times. The proofs were never the problem.
