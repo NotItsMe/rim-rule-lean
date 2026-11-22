@@ -32,6 +32,16 @@
 - U_σ open/convex: `isOpen_biInter_finset`, `convex_iInter₂`.
 - `h ▸ x` failed for goals of the form `0 ∈ f ⁻¹' s` (the cast can't see `f 0` through the preimage). Use `rw [mem_preimage, hf0]` instead.
 
+## Case B (Stage 5), done
+- **Decision:** the lowest point minimises the z-weight over *representations* in the 2-simplex (`simplex3 ⊆ ℝ × ℝ × ℝ`, map `tri a b z q = q.1•a + q.2.1•b + q.2.2•z`), not the affine height h over points. This removes the non-degeneracy step (paper B1) and merges the r = a, r = b and h(r) = 0 cases into one argument.
+- Compactness: `isCompact_Icc.prod (isCompact_Icc.prod isCompact_Icc)` then `IsCompact.of_isClosed_subset`, then `IsCompact.inter_right` with a closed preimage, then `IsCompact.exists_isMinOn` + `isMinOn_iff`.
+- `Set.setOf_and` is deprecated in this mathlib; use `Set.ofPred_and`.
+- Convexity of a 3-point combination: `Convex.sum_mem` over `Fin 3` with `![…]`, then `fin_cases i <;> simpa` and `Fin.sum_univ_three`.
+- Re-weighting `s•a + t•(tri w)` as `tri (s + t w₁, t w₂, t w₃)`: `simp only [tri, smul_add, smul_smul, add_smul]; abel`. The simplex sum is `linear_combination hst + t * hwsum`.
+- `mul_lt_of_lt_one_left : 0 < b → a < 1 → a * b < b` gives tγ < γ.
+- mathlib's `openSegment ℝ a a = {a}` (not empty). That is why r = a needs no special case.
+- `exists_point_of_mem_code`: c ∈ C ⇒ some x ∈ X has codeword c. Stage 6 will use it to get a, b, z from H5′, H6, H7.
+
 ## Ideas for later stages
 - **Rockafellar 6.5 (Stage 3)** needs only the ⊇ direction, and it holds in any real topological vector space. Take w ∈ U ∩ V and x ∈ cl U ∩ cl V. Then [w, x) ⊆ U ∩ V by `Convex.openSegment_interior_closure_subset_interior` (applied to U and to V), and x is a limit of points of [w, x).
 - **Case B lowest point:** instead of an affine height h on aff T, we could minimise the z-barycentric weight γ over the compact set {(α,β,γ) ∈ stdSimplex : αa+βb+γz ∈ cl W}. That avoids building h and may avoid needing non-degeneracy.

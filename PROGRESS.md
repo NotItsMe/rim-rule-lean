@@ -2,6 +2,33 @@
 
 One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Lean Rim Brief.md`.
 
+Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
+
+## 2026-11-21: Stage 5 (Case B, the lowest-point case of Theorem 1(b))
+
+**Git first.** Stages 0–4 are committed, one commit per stage. Each commit has the `RimRule.lean` imports and PROGRESS entries of its stage. They're pushed to the new private repo `NotItsMe/rim-rule-lean`.
+
+**Done.** `RimRule/CaseB.lean` (256 lines) compiles with `lake build`. It compiled on the first attempt; the only follow-up was fixing two warnings (a deprecated name, and an unused section variable).
+- `caseB`: open convex realization (any real topological vector space), σ_i ≠ ∅, H1ₘ, H2ₘ, H3, H4. Take a ∈ U_imp \ U_j, b ∈ U_jmp and z ∈ U_ijm. If [a, b] misses U_i ∩ U_j, that's a contradiction. The Case B hypothesis is written as the exact negation of Case A's, so Stage 6 is a `by_cases`.
+- `caseB_realSpace`: the same on ℝ^d.
+- **How the lowest point is formalized.** We don't use the height h, so the triangle doesn't have to be non-degenerate. We minimise the z-weight γ over representations (α, β, γ) in the standard 2-simplex with αa + βb + γz ∈ cl W. That set is compact (a closed subset of [0,1]³) and contains (0, 0, 1). This is `exists_lowest`. When the triangle is non-degenerate, γ = h, so r is the paper's point.
+- **Key fact.** A representation with z-weight < γ, or = 0, gives a point outside W. The first by minimality, the second because [a, b] misses W. Points of (a, r) and (b, r) have z-weight tγ with t < 1, so they're outside W.
+- **Edge cases, all handled by the same argument with no case split:**
+  - h(r) = 0 (γ = 0): the "= 0" branch of the key fact.
+  - r = a: mathlib's (a, a) = {a}, so it's H1ₘ at a.
+  - r = b: H2ₘ at b, with b ∉ U_i from the key fact.
+  - B1 of the paper (non-degenerate triangle) isn't needed.
+- **Where codewords are read** (referee fix 3): on (a, r) ⊆ U_i (σ_i ≠ ∅); on (b, r) ⊆ U_j (σ_j ≠ ∅ because a ∉ U_j); and at the final point in U_m (σ_m ≠ ∅ from H3 + H4).
+- Uses Stage 3: `openSegment_subset_of_isOpen_convex` (6.1) for (a, r) ⊆ U_i and (b, r) ⊆ U_j, and `closure_inter_closure_subset_closure_inter` (6.5) for r ∈ cl (U_k ∩ U_l).
+- `#print axioms` on `caseB`, `caseB_realSpace`, `exists_lowest` and `tri_mem_of_convex` gives exactly [propext, Classical.choice, Quot.sound]. No `sorry` and no `native_decide` (grep finds only the doc comment in Census.lean).
+- `CaseB.lean` builds in about 30 s, and the full `lake build` takes about 68 s. `RimRule.lean` now imports `RimRule.CaseB`.
+
+**Line count:** Defs 185, Census 89, Rockafellar 69, CaseA 170, CaseB 256. Total 769.
+
+**Next: Stage 6 (main theorem).** Prove `Theorem1b` from `Defs.lean`. Unpack `IsOpenConvex` and get a, b, z from H5′, H6, H7 via `exists_point_of_mem_code`. Then `by_cases` on the overlap and call `caseA_realSpace` or `caseB_realSpace`. Check that `#print axioms Theorem1b`'s proof is clean.
+
+**Blockers:** none.
+
 ## 2026-11-21: Stage 4 (Case A, the overlap case of Theorem 1(b))
 
 **Done.** `RimRule/CaseA.lean` (170 lines) compiles with `lake build`. It compiled on the second attempt; the only error was a `▸` cast, fixed with `rw`.
