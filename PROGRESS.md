@@ -15,6 +15,7 @@ Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage
   - Extra check against the textbook: `realization_eq_iUnion_convexHull : IsComplex K → realization K = ⋃ σ ∈ K, convexHull ℝ (vtx '' σ)`.
 - **No existing file changed** except the import list in `RimRule.lean` and new lines in `Check.lean`.
 - **Checks:** forbidden-word scan over `*.lean` returns nothing; `lake build` passes (3440 jobs, only the usual "consider adding `module`" warnings); `lake env lean Check.lean` prints `[propext, Classical.choice, Quot.sound]` for all 13 old and 8 new theorems.
+- **CI:** GitHub Actions run 45072901925 on commit 4bbb0b9 passed (`lake build`, 5 min 51 s).
 - **Build:** `Realization.lean` builds in 18 s (first check with `lake env lean` took 2 min 15 s, mostly loading mathlib with 0.8 GB RAM free). No memory trouble.
 
 **Next:** 10b (cones are star-convex, hence contractible). mathlib already has `StarConvex.contractibleSpace` in `Mathlib/Analysis/Convex/Contractible.lean`.
