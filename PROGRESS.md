@@ -13,6 +13,7 @@ Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage
 - **Statement change (stronger):** `Theorem1b` now concludes `¬ IsOpenConvex C ∧ ¬ IsClosedConvex C`, matching the note's 1(b). Old conclusion kept as `theorem1b_open`; closed half from `theorem1a` via `fB_of_h4`. Logged in CHANGES.md.
 - **Housekeeping:** Defs.lean cites Chan Def 2.3 for the realized code, explains the `U_∅` convention, notes `∅ ∈ C` is Chan Assumption 2.5. Data.lean header: 1,800 filtered codes, 70 fit. README rewritten. Census.lean comment reworded so the forbidden-word scan is empty.
 - **Checks:** forbidden-word scan over `*.lean` returns nothing; `lake build` passes (3424 jobs, only "consider adding `module`" warnings); `lake env lean Check.lean` prints `[propext, Classical.choice, Quot.sound]` for all 13 theorems listed there.
+- **CI:** GitHub Actions run 45008594395 on commit 247dc24 passed (`lake build` from scratch, 14 min 34 s).
 - **Build:** the parallel `lake build` failed with only ~1.4 GB RAM free (four Lean processes couldn't load mathlib: "failed to read file …Pi.olean"). Built module by module instead: about 22 min total, Links1 335 s, Links2 515 s.
 
 **Blockers:** none.

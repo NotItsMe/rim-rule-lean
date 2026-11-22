@@ -108,6 +108,9 @@ One comment in `Census.lean` used the phrase "no `native_decide`"; it was reword
 **`lake build`:** `Build completed successfully (3424 jobs).` The only warnings are the 4 usual
 "consider adding `module`" notes.
 
+**CI:** GitHub Actions run 45008594395 on commit `247dc24` rebuilt everything from scratch on a
+clean Linux machine and passed (14 min 34 s).
+
 **`lake env lean Check.lean`:**
 
 ```
