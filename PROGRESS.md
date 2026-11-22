@@ -14,6 +14,7 @@ Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage
 - `C033_not_isClosedConvex : ¬ IsClosedConvex Census.C033`. The corollary: Theorem 1(a) applied to `Census.theorem1a_hyps`, roles (4,5,1,2,3,6). With Stage 6, C5-033 is now machine-checked to be neither open-convex nor closed-convex.
 - `#print axioms` on `theorem1a`, `C033_not_isClosedConvex`, `caseA_closed` and `caseB_closed` gives exactly [propext, Classical.choice, Quot.sound]. Checked with `lake env lean` on a scratch file (`import RimRule.Theorem1a`).
 - No `sorry`, no `admit`, no `native_decide` (grep finds only the doc comment in Census.lean).
+- CI: GitHub Actions run 44986033343 on commit dfd043d passed (`lake build`, about 3 min).
 - `Theorem1a.lean` builds in about 30 s once its dependencies are built (131 s on the first build, which also rebuilt the import chain). `RimRule.lean` now imports `RimRule.Theorem1a`.
 
 **Line count:** Defs 185, Census 89, Rockafellar 69, CaseA 170, CaseB 256, Main 52, Theorem1a 249. Total 1070.
