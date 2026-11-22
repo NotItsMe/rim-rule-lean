@@ -4,6 +4,23 @@ One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Le
 
 Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-22: Stage 10a (geometric realization: definition and sanity checks)
+
+**Done.** Brief: BigBrain `Projects/Math Discoveries Files/Lean Stage 10 Brief.md`. Only sub-stage 10a; 10b–10e not started.
+- **New `RimRule/Realization.lean`** (242 lines). `realization K : Set (Fin n → ℝ)` = points with all `x i ≥ 0`, `∑ i, x i = 1` and support `supp x ∈ K`. Vertex `i` sits at `vtx i = Pi.single i 1`. Docstring quotes Hatcher §2.1 (Δⁿ) and gives the Munkres §3 / Matoušek §1.4 form `|K| = ⋃_{σ ∈ K} conv {eᵢ : i ∈ σ}`. The quotes were written from memory; check page numbers against the books.
+- **Sanity theorems:**
+  - `realization_singleton_empty : realization {∅} = ∅`, and `not_contractibleSpace_realization_singleton_empty` (so the link `{∅}` of a facet is not contractible: facets are mandatory).
+  - `realization_vertex : realization {∅, {v}} = {vtx v}` (one point), and `contractibleSpace_realization_vertex`.
+  - `realization_powerset` (the full simplex on σ is the face of Δⁿ⁻¹ vanishing off σ), `realization_powerset_eq_convexHull` (= `conv {eᵢ : i ∈ σ}`), `convex_realization_powerset`, `contractibleSpace_realization_powerset` (σ nonempty; mathlib's `Convex.contractibleSpace`).
+  - Extra check against the textbook: `realization_eq_iUnion_convexHull : IsComplex K → realization K = ⋃ σ ∈ K, convexHull ℝ (vtx '' σ)`.
+- **No existing file changed** except the import list in `RimRule.lean` and new lines in `Check.lean`.
+- **Checks:** forbidden-word scan over `*.lean` returns nothing; `lake build` passes (3440 jobs, only the usual "consider adding `module`" warnings); `lake env lean Check.lean` prints `[propext, Classical.choice, Quot.sound]` for all 13 old and 8 new theorems.
+- **Build:** `Realization.lean` builds in 18 s (first check with `lake env lean` took 2 min 15 s, mostly loading mathlib with 0.8 GB RAM free). No memory trouble.
+
+**Next:** 10b (cones are star-convex, hence contractible). mathlib already has `StarConvex.contractibleSpace` in `Mathlib/Analysis/Convex/Contractible.lean`.
+
+**Blockers:** none.
+
 ## 2026-11-22: Stage 9 (every missing face; one cited fact; Conjecture 3.13 headline)
 
 **Done.** Brief: DEF_CHECK.md (referee pass on Stage 8). Full write-up: `LEAN_FINAL.md`.

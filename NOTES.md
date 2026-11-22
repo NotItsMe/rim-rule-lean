@@ -70,6 +70,16 @@
 - `all70.Nodup` and `IsNeuralCode` are cheap by `decide +kernel` (about 18 s together in a scratch test).
 - Python check (scratch script): 1,410 nonempty faces of Δ(C) ∖ C across the 70 codes, 278 equal to their hull, 1,132 not. Matches DEF_CHECK.md.
 
+## Stage 10a (geometric realization), done
+- **Definition by support, not by union.** `realization K = {x | x ≥ 0, ∑ x = 1, supp x ∈ K}`. For a complex this equals the textbook `⋃_{σ ∈ K} conv {eᵢ}` (`realization_eq_iUnion_convexHull`), but the support form puts each point in exactly one open simplex, which should make 10c (the collapse map on the open simplex τ) easier.
+- **mathlib's `stdSimplex` is deprecated** (since 2026-08-29, in favour of a `StdSimplex` type). Not used; the conditions are written out by hand.
+- **Contractibility lemmas:** `Convex.contractibleSpace` and `StarConvex.contractibleSpace (h : StarConvex ℝ x s) (hne : s.Nonempty) : ContractibleSpace s` in `Mathlib/Analysis/Convex/Contractible.lean`. 10b can use the second directly.
+- **Nonempty from contractible:** `ContractibleSpace.hequiv_unit X : Nonempty (X ≃ₕ Unit)`; `e.invFun ()` is a point.
+- `rw [h] at hx` failed when `hx : ↑(e.invFun ()) ∈ S` and `e`'s type mentions `S` (motive not type correct). Fix: state `hx` with an explicit type, then `simp only [h, Set.mem_empty_iff_false] at hx`.
+- `Set.mem_setOf_eq` is deprecated; use `Set.mem_ofPred_eq`.
+- Center of mass: `Finset.centerMass_mem_convexHull` + `Finset.centerMass_eq_of_sum_1`, then `Finset.sum_apply`, `Pi.single_apply`, `mul_ite`, `Finset.sum_ite_eq`.
+- `supp` is defined with `open Classical in` (real `≠ 0` isn't decidable); all proofs go through `mem_supp`, so no instance mismatch came up.
+
 ## CI failure (2026-11-22), fixed
 - **Symptom:** GitHub Actions "Lean Action CI" failed on the Stage 4 and Stage 5 pushes (runs 44981470885, 44982072987) after about 16 min.
 - **The Lean build was fine.** The `leanprover/lean-action@v1` step (`lake build`) passed both times. The proofs were never the problem.

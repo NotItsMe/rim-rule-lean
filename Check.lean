@@ -19,3 +19,13 @@ import RimRule
 #print axioms RimRule.theorem1a
 #print axioms RimRule.C033_not_isOpenConvex
 #print axioms RimRule.C033_not_isClosedConvex
+-- Stage 10a: geometric realization
+#check @RimRule.realization
+#print axioms RimRule.realization_singleton_empty
+#print axioms RimRule.not_contractibleSpace_realization_singleton_empty
+#print axioms RimRule.realization_vertex
+#print axioms RimRule.contractibleSpace_realization_vertex
+#print axioms RimRule.realization_powerset
+#print axioms RimRule.realization_powerset_eq_convexHull
+#print axioms RimRule.contractibleSpace_realization_powerset
+#print axioms RimRule.realization_eq_iUnion_convexHull
