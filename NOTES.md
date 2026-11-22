@@ -47,6 +47,13 @@
 - The points: `obtain ⟨a, -, rfl⟩ := exists_point_of_mem_code hR hca` replaces the codeword by `codeword U a`, then `mem_inter_iff_subset_codeword` gives a ∈ U_σ directly. x ∈ X isn't needed here; Cases A and B recover it from σ_i ≠ ∅ / σ_j ≠ ∅ / σ_m ≠ ∅.
 - The Case B hypothesis is literally `¬` of the Case A one, so `by_cases` needs no rewriting.
 
+## Theorem 1(a), closed (Stage 7), done
+- `IsClosed.csInf_mem` (`Mathlib/Topology/Order/Monotone.lean`): a closed, nonempty, bounded-below set of reals contains its inf. In closed Case A this replaces the open case's "c ∉ S" argument.
+- `closure_Ico (hab : a ≠ b) : closure (Ico a b) = Icc a b` and `closure_minimal` give "V_k closed, [0, c) ⊆ preimage ⇒ c ∈ preimage".
+- `isClosed_biInter` for V_σ closed (our wrapper `isClosed_interU`; named with a `U` suffix to avoid a clash with any root name).
+- `exists_lowest` from Case B works unchanged with F = V_i ∩ V_j (already closed, no closure needed). Closed Case B uses `Convex.openSegment_subset` instead of Rockafellar 6.1.
+- Mathlib's `show` linter complains when `show` changes the goal (e.g. unfolding `t ∈ f ⁻¹' s` to `f t ∈ s`); use `change`.
+
 ## CI failure (2026-11-22), fixed
 - **Symptom:** GitHub Actions "Lean Action CI" failed on the Stage 4 and Stage 5 pushes (runs 44981470885, 44982072987) after about 16 min.
 - **The Lean build was fine.** The `leanprover/lean-action@v1` step (`lake build`) passed both times. The proofs were never the problem.

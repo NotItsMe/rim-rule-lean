@@ -4,6 +4,24 @@ One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Le
 
 Repo: private GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-21: Stage 7 (Theorem 1(a), the closed half, and C5-033 is not closed-convex)
+
+**Done.** `RimRule/Theorem1a.lean` (249 lines) compiles with `lake build`, on the first attempt. The only follow-up was a style warning (`show` that changed the goal, replaced by `change`). The build now has no warnings apart from the usual "consider adding `module`" notes.
+- `theorem1a : Theorem1a`. It proves the statement in `Defs.lean` exactly as written; `Defs.lean` is unchanged (`git diff` is empty). Same shape as `theorem1b`: get a, b, z from H5′, H6, H7, then `by_cases` on the overlap.
+- `caseA_closed` (overlap, breaks F_A). S = {t ≥ 0 : lineMap a b t ∈ V_j} is closed, so c = inf S lies in S (`IsClosed.csInf_mem`), and c > 0 because a ∉ V_j. H1ₘ puts lineMap a b '' [0, c) in V_k, and c ∈ cl [0, c) (`closure_Ico`), so V_k closed gives the point at c in V_ijkmp.
+- `caseB_closed` (no overlap, breaks F_B). Reuses `exists_lowest` from Case B with F = W = V_i ∩ V_j, which is already closed. (a, r) ⊆ V_i ∩ V_m by plain convexity (no Rockafellar 6.1, as the paper says). H1ₘ puts (a, r) in V_k and H2ₘ puts (b, r) in V_l; closedness puts r in both, so c(r) ⊇ ijklm. As in Stage 5, the edge cases (r = a, r = b, h(r) = 0) need no separate case, and the triangle need not be non-degenerate.
+- σ_m = ∅ is allowed, as in the paper: nothing in the closed proof uses σ_m ≠ ∅.
+- `C033_not_isClosedConvex : ¬ IsClosedConvex Census.C033`. The corollary: Theorem 1(a) applied to `Census.theorem1a_hyps`, roles (4,5,1,2,3,6). With Stage 6, C5-033 is now machine-checked to be neither open-convex nor closed-convex.
+- `#print axioms` on `theorem1a`, `C033_not_isClosedConvex`, `caseA_closed` and `caseB_closed` gives exactly [propext, Classical.choice, Quot.sound]. Checked with `lake env lean` on a scratch file (`import RimRule.Theorem1a`).
+- No `sorry`, no `admit`, no `native_decide` (grep finds only the doc comment in Census.lean).
+- `Theorem1a.lean` builds in about 30 s once its dependencies are built (131 s on the first build, which also rebuilt the import chain). `RimRule.lean` now imports `RimRule.Theorem1a`.
+
+**Line count:** Defs 185, Census 89, Rockafellar 69, CaseA 170, CaseB 256, Main 52, Theorem1a 249. Total 1070.
+
+**Next:** all stages in the brief are done. Possible extras, none started: drop σ_i ≠ ∅ (referee fix 8), the other certificates from the census (brief step 4 says "033 and the other certificates"), or Proposition 2 (apex lift).
+
+**Blockers:** none.
+
 ## 2026-11-21: Stage 6 (Theorem 1(b) assembled, and C5-033 is not open-convex)
 
 **Done.** `RimRule/Main.lean` (52 lines) compiles with `lake build`, on the first attempt.
