@@ -2,6 +2,24 @@
 
 One dated entry per session. Brief: BigBrain `Projects/Math Discoveries Files/Lean Rim Brief.md`.
 
+## 2026-11-21: Stage 3 (Rockafellar 6.5, trial run)
+
+**Done.** `RimRule/Rockafellar.lean` (69 lines) compiles with `lake build`. It compiled on the first attempt, so the trial run passes and we can go on to Stage 4.
+- `closure_inter_closure_subset_closure_inter`: the ⊇ direction the Rim proof uses. If U, V are open, convex and U ∩ V is nonempty, then cl U ∩ cl V ⊆ cl (U ∩ V).
+- `closure_inter_eq_of_isOpen_convex`: the full equality cl (U ∩ V) = cl U ∩ cl V. The ⊆ direction is mathlib's `closure_inter_subset_inter_closure`.
+- Both hold in any real topological vector space. `rockafellar_6_5` states the brief's version on ℝ^d = `Fin d → ℝ`.
+- Helper `openSegment_subset_of_isOpen_convex` is Rockafellar 6.1 for open convex U: (w, x) ⊆ U when w ∈ U and x ∈ cl U. Stage 5 will reuse it for [a, r) ⊆ U_k.
+- Proof: pick w ∈ U ∩ V. Rockafellar 6.1 puts (w, x) inside both U and V, and x lies in the closure of (w, x) by `segment_subset_closure_openSegment`.
+- `#print axioms` on all three theorems gives exactly [propext, Classical.choice, Quot.sound]. No `sorry` and no `native_decide`. `grep` finds only a doc comment in Census.lean that says "no `native_decide`".
+- The file imports only `Mathlib.Analysis.Convex.Topology`, the same import as Defs.lean. It builds in about 23 s, and the full `lake build` takes about 58 s.
+- `RimRule.lean` now imports `RimRule.Rockafellar`.
+
+**Line count:** Defs 185, Census 89, Rockafellar 69. Total 343.
+
+**Next: Stage 4 (Case A, the overlap case of Theorem 1(b)).** Points a ∈ U_imp \ U_j and b ∈ U_jmp. If U_i and U_j overlap on [a, b], let c be the first point of the U_j part. H1ₘ applies at c, and a ball around c inside U_ikmp meets U_j, which breaks F_A. To find "the first point", take the infimum of {t : lineMap a b t ∈ U_j} on [0, 1].
+
+**Blockers:** none.
+
 ## 2026-11-21: Stage 2 (Census)
 
 **Done.** `RimRule/Census.lean` (89 lines) compiles with `lake build`. It has no `sorry` and no `native_decide`.
