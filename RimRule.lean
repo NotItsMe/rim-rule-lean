@@ -1,1 +1,1 @@
-import RimRule.Basic
+import RimRule.Defs
