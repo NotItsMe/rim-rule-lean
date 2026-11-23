@@ -73,4 +73,4 @@ None. Both files compiled on the first try.
 
 `Mandatory.lean` takes 14 s and `Conj313Literal.lean` takes 13 s (`lake build <module>`).
 
-CI: CI_RESULT.
+CI: GitHub Actions run 45104819300 on commit 4865f7a passed (`lake build`, 1 min 42 s).

@@ -1,6 +1,6 @@
 # Stage 10b: the realization of a cone is contractible
 
-New file: `RimRule/Cone.lean` (80 lines). No existing file changed except the import list in `RimRule.lean` and new lines in `Check.lean`.
+New file: `RimRule/Cone.lean` (75 lines). No existing file changed except the import list in `RimRule.lean` and new lines in `Check.lean`.
 
 ## What was proved
 
