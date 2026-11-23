@@ -14,7 +14,7 @@ Write `τ = σ ∪ {w}` with `w ∉ σ`, and `K' = elemCollapse K σ τ = K ∖ 
 
 ## Definition mirrored
 
-Hatcher, *Algebraic Topology* (2002), Ch. 0, p. 2: "A *deformation retraction* of a space `X`
+Hatcher, *Algebraic Topology*: "A *deformation retraction* of a space `X`
 onto a subspace `A` is a family of maps `f_t : X → X`, `t ∈ I`, such that `f_0 = 𝟙` (the
 identity map), `f_1(X) = A`, and `f_t | A = 𝟙` for all `t`. The family `f_t` should be
 continuous in the sense that the associated map `X × I → X`, `(x, t) ↦ f_t(x)`, is
@@ -38,8 +38,7 @@ The homotopy is the straight line
 
 This is the usual "push the open simplex `τ` away from the free face `σ`" map (the standard
 proof that an elementary collapse is a deformation retraction; see e.g. Cohen, *A Course in
-Simple-Homotopy Theory*, Ch. II, or Kozlov, *Combinatorial Algebraic Topology*, the chapter
-on simplicial collapses; chapter numbers cited from memory). Here it is a single formula on
+Simple-Homotopy Theory*, or Kozlov, *Combinatorial Algebraic Topology*). Here it is a single formula on
 all of `|K|`, so no pasting lemma is needed: `m` is continuous (a finite minimum of
 coordinates) and vanishes wherever the map should be the identity.
 

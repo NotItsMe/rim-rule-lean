@@ -92,4 +92,4 @@ One full local rebuild was forced by the public-release commit's docstring edit 
 
 - The 70 codes are pairwise non-isomorphic. This is checked in Python only; `all70_nodup` proves only that they are distinct as sets.
 - Whether Conjecture 3.13 had already been refuted elsewhere. No full literature review was done.
-- Textbook page and section numbers quoted in docstrings (Hatcher, Munkres, Matoušek, Cohen, Kozlov) were written from memory and should be checked against copies. Def 2.13–2.15 of 1912.00963 were read from arXiv v3.
+- Textbook citations in docstrings (Hatcher, Munkres, Matoušek, Cohen, Kozlov) give author and title only; page and chapter numbers were removed because they were written from memory. The quoted wording of Hatcher's definitions should still be checked against a copy. Def 2.13–2.15 of 1912.00963 were read from arXiv v3.

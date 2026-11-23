@@ -4,7 +4,7 @@ import RimRule.Complex
 set_option linter.style.header false
 
 /-!
-# Locally good codes, up to one cited fact
+# Locally good codes (combinatorial form)
 
 `LocallyGoodC C` says: for **every** nonempty face `σ ∈ Δ(C)` that is not a codeword, the
 link `lk_σ(Δ(C))` is collapsible. Unlike `LinksCollapsible`, it skips no faces.
@@ -15,15 +15,15 @@ Gambacini, Jeffs, Macdonald, Shiu (arXiv 1912.00963), Def 2.14–2.15: a code `C
 **locally good** if every nonempty `σ ∈ Δ(C)` whose link `Lk_σ(Δ(C))` is not contractible
 is a codeword. Equivalently: every nonempty `σ ∈ Δ(C) ∖ C` has a contractible link.
 `LocallyGoodC C` gives a collapsible link for each such `σ`, so
-`LocallyGoodC C ⇒ C is locally good` uses exactly one fact that is **cited, not proved
-here**:
+`LocallyGoodC C ⇒ C is locally good` needs one more fact:
 
 * *Collapsible ⇒ contractible.* An elementary collapse is a deformation retraction, so a
-  complex that collapses to a single vertex is contractible. This is a standard textbook fact
-  of combinatorial topology. mathlib has no geometric realization of abstract simplicial
-  complexes, so it cannot be stated here.
+  complex that collapses to a single vertex is contractible. This was cited up to Stage 9;
+  it is now **proved** in Stage 10d (`contractibleSpace_realization_of_collapsible`,
+  `RimRule/CollapsibleContractible.lean`), and the implication is
+  `LocallyGoodC.locallyGood` (`RimRule/Mandatory.lean`, Stage 10e).
 
-No other cited fact is needed. In particular, the step from Curto et al. (Cor 4.6 /
+Nothing is cited. In particular, the step from Curto et al. (Cor 4.6 /
 Lemma 1.4: faces that are not intersections of facets have cone links) is now **proved**
 in Lean, for these complexes, as `collapsible_link_of_hull_ne` below.
 
@@ -181,15 +181,15 @@ theorem collapsible_link_of_hull_ne {C : Finset (Finset (Fin n))} {σ : Finset (
     (empty_mem_link (isComplex_delta C) hΔ) (isConeWith_link_delta hv hvσ)
   exact ⟨steps, v, hs⟩
 
-/-! ### Locally good, up to collapsible ⇒ contractible -/
+/-! ### Locally good, combinatorial form -/
 
 /-- **`LocallyGoodC C`**: every nonempty face `σ ∈ Δ(C)` that is not a codeword has a
 collapsible link `lk_σ(Δ(C))`.
 
 This implies that `C` is **locally good** in the sense of Gambacini, Jeffs, Macdonald, Shiu
 (arXiv 1912.00963, Def 2.14–2.15: every nonempty `σ ∈ Δ(C)` with non-contractible link is a
-codeword) via the single cited fact **collapsible ⇒ contractible**, which is not proved here
-(see the module doc). -/
+codeword) via **collapsible ⇒ contractible**, proved in Stage 10d; the implication is
+`LocallyGoodC.locallyGood` in `RimRule/Mandatory.lean`. -/
 def LocallyGoodC (C : Finset (Finset (Fin n))) : Prop :=
   ∀ σ ∈ delta C, σ.Nonempty → σ ∉ C → Collapsible (link (delta C) σ)
 

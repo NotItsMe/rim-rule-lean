@@ -15,7 +15,7 @@ apex vertex `e_v` to the points of `|K|`, so `|K|` is **star-convex** around `e_
 `contractibleSpace_realization_cone`.
 
 This is the textbook fact that a cone deformation retracts to its apex (Hatcher, *Algebraic
-Topology*, Ch. 0, where the cone `CX` is introduced; cited from memory, check against a copy).
+Topology*, where the cone `CX` is introduced).
 The segment from `e_v` to `x` stays in `|K|` because every point on it has support `supp x`,
 `{v} ∪ supp x` or `{v}`, and these are faces of `K`.
 

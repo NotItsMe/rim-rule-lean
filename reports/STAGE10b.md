@@ -31,7 +31,7 @@ For a cone with apex `v` and a point `x ∈ |K|`, every point `a • e_v + b •
 
 ## New definitions
 
-None. `IsConeWith` (Stage 9) and `realization` (Stage 10a) are reused. The textbook fact mirrored is that a cone deformation retracts to its apex (Hatcher, *Algebraic Topology*, Ch. 0). That citation was written from memory and should be checked against a copy.
+None. `IsConeWith` (Stage 9) and `realization` (Stage 10a) are reused. The textbook fact mirrored is that a cone deformation retracts to its apex (Hatcher, *Algebraic Topology*).
 
 ## Design choices
 

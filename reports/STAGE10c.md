@@ -49,7 +49,7 @@ Why this works:
 
 ## Definitions mirrored
 
-**Deformation retraction.** Hatcher, *Algebraic Topology*, Ch. 0, p. 2 (quoted from memory; check against a copy): "a family of maps f_t : X → X, t ∈ I, such that f_0 = 𝟙, f_1(X) = A, and f_t|A = 𝟙 for all t", continuous as a map X × I → X.
+**Deformation retraction.** Hatcher, *Algebraic Topology* (quoted from memory; check the wording against a copy): "a family of maps f_t : X → X, t ∈ I, such that f_0 = 𝟙, f_1(X) = A, and f_t|A = 𝟙 for all t", continuous as a map X × I → X.
 - `realization_deformationRetract` states this with `f_1(X) ⊆ A`.
 - Together with `f_t|A = 𝟙` that gives `f_1(X) = A`.
 
@@ -59,7 +59,7 @@ Why this works:
 - `pushAlong σ hσ w t x`
 - `realizationCollapseHEquiv`, which is data of mathlib's type `ContinuousMap.HomotopyEquiv`.
 
-The geometric idea is the standard "push the open simplex τ off the free face σ". The docstring cites Cohen, *A Course in Simple-Homotopy Theory*, Ch. II, and Kozlov, *Combinatorial Algebraic Topology*, the chapter on collapses, from memory.
+The geometric idea is the standard "push the open simplex τ off the free face σ". The docstring cites Cohen, *A Course in Simple-Homotopy Theory*, and Kozlov, *Combinatorial Algebraic Topology*.
 
 ## Design choices
 

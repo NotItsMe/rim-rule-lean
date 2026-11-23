@@ -15,20 +15,22 @@ a neural code, satisfies `LocallyGoodC`, and is neither open-convex nor closed-c
 witness is `Rim70.FiveFac399`; `Rim70.all70_spec` proves the same for all 70 codes in
 `Rim70.all70`.
 
-**The one cited fact.** `LocallyGoodC C` (every nonempty non-codeword face of `Δ(C)` has a
-*collapsible* link) implies "locally good" (Def 2.14–2.15: every such face has a
-*contractible* link) by the textbook fact collapsible ⇒ contractible. That fact is not proved
-in Lean (see `RimRule/LocallyGood.lean`). Everything else is.
+**Collapsible ⇒ contractible (now proved).** `LocallyGoodC C` (every nonempty non-codeword
+face of `Δ(C)` has a *collapsible* link) implies "locally good" (Def 2.14–2.15: every such face
+has a *contractible* link) by collapsible ⇒ contractible. That fact was cited up to Stage 9; it
+is proved in Stage 10d (`RimRule/CollapsibleContractible.lean`). The version of this theorem
+with the papers' `LocallyGood` and nothing cited is `conj313_counterexample'`
+(`RimRule/Conj313Literal.lean`).
 -/
 
 namespace RimRule
 
 open Rim70
 
-/-- **Refutes Conjecture 3.13 of Gambacini–Jeffs–Macdonald–Shiu** (arXiv 1912.00963), modulo
-the single cited fact collapsible ⇒ contractible: there is a neural code on 7 neurons that
-satisfies `LocallyGoodC` (hence is locally good, by that fact) and is neither open-convex nor
-closed-convex. -/
+/-- **Refutes Conjecture 3.13 of Gambacini–Jeffs–Macdonald–Shiu** (arXiv 1912.00963): there
+is a neural code on 7 neurons that satisfies `LocallyGoodC` (hence is locally good, by
+collapsible ⇒ contractible, proved in Stage 10d) and is neither open-convex nor closed-convex.
+See `conj313_counterexample'` for the form stated with `LocallyGood`. -/
 theorem conj313_counterexample :
     ∃ C : Finset (Finset (Fin 7)),
       IsNeuralCode C ∧ LocallyGoodC C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C :=

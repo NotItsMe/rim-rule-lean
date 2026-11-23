@@ -58,7 +58,7 @@ Repo: GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is comm
 ## 2026-11-22: Stage 10a (geometric realization: definition and sanity checks)
 
 **Done.** Brief: the Stage 10 brief (private notes). Only sub-stage 10a; 10b–10e not started.
-- **New `RimRule/Realization.lean`** (242 lines). `realization K : Set (Fin n → ℝ)` = points with all `x i ≥ 0`, `∑ i, x i = 1` and support `supp x ∈ K`. Vertex `i` sits at `vtx i = Pi.single i 1`. Docstring quotes Hatcher §2.1 (Δⁿ) and gives the Munkres §3 / Matoušek §1.4 form `|K| = ⋃_{σ ∈ K} conv {eᵢ : i ∈ σ}`. The quotes were written from memory; check page numbers against the books.
+- **New `RimRule/Realization.lean`** (242 lines). `realization K : Set (Fin n → ℝ)` = points with all `x i ≥ 0`, `∑ i, x i = 1` and support `supp x ∈ K`. Vertex `i` sits at `vtx i = Pi.single i 1`. Docstring quotes Hatcher, *Algebraic Topology* (Δⁿ) and gives the Munkres / Matoušek form `|K| = ⋃_{σ ∈ K} conv {eᵢ : i ∈ σ}`. The quotes were written from memory; check the wording against the books.
 - **Sanity theorems:**
   - `realization_singleton_empty : realization {∅} = ∅`, and `not_contractibleSpace_realization_singleton_empty` (so the link `{∅}` of a facet is not contractible: facets are mandatory).
   - `realization_vertex : realization {∅, {v}} = {vtx v}` (one point), and `contractibleSpace_realization_vertex`.

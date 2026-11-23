@@ -17,11 +17,11 @@ realization** `realization K ⊆ (Fin n → ℝ)` is the set of points `x` with
 
 ## The textbook definition this mirrors
 
-Hatcher, *Algebraic Topology* (2002), §2.1, p. 103, defines the standard simplex as
+Hatcher, *Algebraic Topology*, defines the standard simplex as
 "Δⁿ = {(t₀, …, tₙ) ∈ ℝⁿ⁺¹ | Σᵢ tᵢ = 1 and tᵢ ≥ 0 for all i}", and calls the subsimplex spanned
 by any nonempty subset of the vertices a *face*. The usual realization of an abstract
-simplicial complex `K` on vertices `{1, …, n}` (Munkres, *Elements of Algebraic Topology*, §3;
-Matoušek, *Using the Borsuk–Ulam Theorem*, §1.4) puts vertex `i` at the standard basis vector
+simplicial complex `K` on vertices `{1, …, n}` (Munkres, *Elements of Algebraic Topology*;
+Matoušek, *Using the Borsuk–Ulam Theorem*) puts vertex `i` at the standard basis vector
 `eᵢ` and takes
 
   `|K| = ⋃_{σ ∈ K} conv {eᵢ : i ∈ σ}`,
@@ -33,7 +33,7 @@ is the same set, and it is easier to compute with: each point of `|K|` lies in t
 simplex of exactly one face, namely its support.
 
 (The two quotations above were written from memory of the printed books; a human should
-check the page numbers against a copy.)
+check the wording against a copy.)
 
 ## Sanity checks proved here
 
@@ -232,8 +232,8 @@ theorem realization_eq_iUnion_powerset {K : Finset (Finset (Fin n))} (hK : IsCom
   · rintro ⟨σ, hσ, h0, h1, hx⟩
     exact ⟨h0, h1, hK σ hσ _ hx⟩
 
-/-- **Textbook form.** For a complex `K`, `|K| = ⋃_{σ ∈ K} conv {eᵢ : i ∈ σ}` (Munkres §3,
-Matoušek §1.4). -/
+/-- **Textbook form.** For a complex `K`, `|K| = ⋃_{σ ∈ K} conv {eᵢ : i ∈ σ}` (Munkres,
+*Elements of Algebraic Topology*; Matoušek, *Using the Borsuk–Ulam Theorem*). -/
 theorem realization_eq_iUnion_convexHull {K : Finset (Finset (Fin n))} (hK : IsComplex K) :
     realization K = ⋃ σ ∈ K, convexHull ℝ (vtx '' (σ : Set (Fin n))) := by
   rw [realization_eq_iUnion_powerset hK]
