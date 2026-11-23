@@ -1,6 +1,6 @@
 # LEAN_FINAL: what Lean proves about the Conjecture 3.13 counterexamples
 
-Date: 2026-11-22. Lean 4.36.0, mathlib `fc4f59e`. Repo: `NotItsMe/rim-rule-lean` (private).
+Date: 2026-11-22. Lean 4.36.0, mathlib `fc4f59e`. Repo: `NotItsMe/rim-rule-lean`.
 
 ## In plain words
 

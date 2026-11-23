@@ -11,8 +11,8 @@ Referee pass, 2026-11-22. Checked commit `2b684fa` (working tree identical to HE
 | Gambacini, Jeffs, Macdonald, Shiu, arXiv 1912.00963v3 | PDF downloaded, `pdftotext`. Def 2.1, 2.3, 2.4, Remark 2.5, Def 2.10, 2.13, 2.14, 2.15, Thm 3.11, Conj 3.13 |
 | Chan, Johnston, Lent, Ruys de Perez, Shiu, arXiv 2011.04565v4 | PDF downloaded. Def 2.1, 2.3, 2.4, Assumption 2.5 |
 | Curto et al., arXiv 1508.00150v4 | PDF downloaded. §1.2 (Δ(C), link, F∩), Def 3.5, Thm 1.3, Lemma 1.4, Lemma 4.5, Cor 4.6, Prop 4.8 |
-| Council note `2026-11-20 Rim Theorem Upgrade part 2 (part 2).md` §5 | read from the vault |
-| `Theorem 1 Referee Report.md` | read from the vault |
+| Council note "Rim Theorem Upgrade part 2" (2026-11-20) §5 | author's private notes, not public |
+| Theorem 1 referee report | author's private notes, not public |
 | github.com/aruysdeperez/WheelsCode, commit `46060723` | cloned; `Results/{Five,Six,Seven}Fac_WIRE_WHEEL_6.sage` parsed |
 
 ## Findings (ordered by importance)

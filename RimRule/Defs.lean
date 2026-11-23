@@ -7,9 +7,9 @@ set_option linter.style.header false
 # Definitions for Theorem 1 (the Rim rule)
 
 This file mirrors the definitions of the paper write-up line by line
-(source: BigBrain `Engines/Final/council2/2026-11-20 Rim Theorem Upgrade part 2 (part 2).md`,
-§5 "Definitions" and "Theorem 1", with the referee fixes from
-`Projects/Math Discoveries Files/Theorem 1 Referee Report.md`).
+(source: the author's unpublished note "Rim Theorem Upgrade, part 2" (2026-11-20),
+§5 "Definitions" and "Theorem 1", with the fixes from an unpublished referee report
+on Theorem 1).
 
 It contains only definitions, the decidability instances needed for the census
 (`decide`), the "basic fact" from §5, and the two target statements as `Prop`s.
