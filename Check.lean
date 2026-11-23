@@ -34,3 +34,11 @@ import RimRule
 #print axioms RimRule.starConvex_realization_cone
 #print axioms RimRule.contractibleSpace_realization_cone
 #print axioms RimRule.contractibleSpace_realization_link_of_hull_ne
+-- Stage 10c: an elementary collapse is a deformation retraction
+#check @RimRule.realization_deformationRetract
+#print axioms RimRule.realization_deformationRetract
+#print axioms RimRule.realizationCollapseHEquiv
+#print axioms RimRule.nonempty_hequiv_realization_elemCollapse
+#print axioms RimRule.pushAlong_mem
+#print axioms RimRule.pushAlong_one_mem
+#print axioms RimRule.pushAlong_of_mem_elemCollapse

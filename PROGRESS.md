@@ -4,6 +4,18 @@ One dated entry per session. Each stage followed a written brief (private planni
 
 Repo: GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-22: Stage 10c (an elementary collapse is a deformation retraction)
+
+**Done, first attempt.** Report: `reports/STAGE10c.md`.
+- **New `RimRule/Collapse.lean`** (292 lines). For a complex `K` and a free pair `(σ, τ)` with `σ ≠ ∅`, `realization_deformationRetract` gives `H : C(unitInterval × |K|, |K|)` with `H(0, x) = x`, `H(1, x) ∈ |K'|` and `H(t, x) = x` on `|K'|` (Hatcher's definition), where `K' = elemCollapse K σ τ`. `realizationCollapseHEquiv` / `nonempty_hequiv_realization_elemCollapse`: `|K| ≃ₕ |K'|`.
+- **Map:** `f_t(x) = x + t·m(x)·(|σ| e_w − 𝟙_σ)` with `m(x) = min_{i∈σ} x_i`, `τ = σ ∪ {w}`. One formula on all of `|K|` (m vanishes where the map must be the identity), so no pasting lemma.
+- **Checks:** `lake build` passes (3444 jobs); forbidden-word scan empty; `Check.lean`: all 30 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`.
+- **Build:** Collapse.lean 16–30 s.
+
+**Next:** 10d (collapsible ⇒ contractible).
+
+**Blockers:** none.
+
 ## 2026-11-22: Stage 10b (cones: realization is star-convex, hence contractible)
 
 **Done.** Report: `reports/STAGE10b.md`.
