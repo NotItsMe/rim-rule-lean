@@ -29,3 +29,8 @@ import RimRule
 #print axioms RimRule.realization_powerset_eq_convexHull
 #print axioms RimRule.contractibleSpace_realization_powerset
 #print axioms RimRule.realization_eq_iUnion_convexHull
+-- Stage 10b: cones
+#check @RimRule.contractibleSpace_realization_cone
+#print axioms RimRule.starConvex_realization_cone
+#print axioms RimRule.contractibleSpace_realization_cone
+#print axioms RimRule.contractibleSpace_realization_link_of_hull_ne
