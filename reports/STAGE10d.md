@@ -67,4 +67,4 @@ None. The file compiled on the first try. The only follow-up was the style linte
 
 `CollapsibleContractible.lean` takes 19 s (`lake build RimRule.CollapsibleContractible`).
 
-CI: CI_RESULT.
+CI: GitHub Actions run 45104413493 on commit 0f1895e passed (`lake build`, 1 min 38 s).

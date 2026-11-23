@@ -9,6 +9,7 @@ Repo: GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is comm
 **Done.** Report: `reports/STAGE10d.md`.
 - **New `RimRule/CollapsibleContractible.lean`** (94 lines). `contractibleSpace_realization_of_collapsible : IsComplex K → Collapsible K → ContractibleSpace (realization K)`, by recursion over the collapse list: `nonempty_hequiv_of_collapsesTo` composes the 10c homotopy equivalences; `∅` survives to `{∅, {v}}` (`collapsesTo_subset`), so every free face is nonempty; `isComplex_elemCollapse` keeps each step a complex. Corollary `contractibleSpace_realization_link_of_collapsible` for links in Δ(C).
 - **Checks:** `lake build` passes (3446 jobs); forbidden-word scan empty; `Check.lean`: all 35 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`.
+- **CI:** GitHub Actions run 45104413493 on commit 0f1895e passed (1 min 38 s).
 - **Build:** CollapsibleContractible.lean 18 s.
 
 **Next:** 10e (literal `LocallyGood`, `conj313_counterexample'`).
