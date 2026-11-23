@@ -4,6 +4,19 @@ One dated entry per session. Each stage followed a written brief (private planni
 
 Repo: GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-22: Stage 10e (the papers' "locally good"; counterexample with nothing cited)
+
+**Done.** Report: `reports/STAGE10e.md`. Stage 10 summary: `reports/STAGE10_SUMMARY.md`.
+- **New `RimRule/Mandatory.lean`** (82 lines): `IsMandatory C σ` (Def 2.14: nonempty `σ ∈ Δ(C)` with `¬ ContractibleSpace (realization (link (delta C) σ))`), `LocallyGood C` (Def 2.15: every mandatory face is a codeword), `locallyGood_iff`, and `LocallyGoodC.locallyGood : LocallyGoodC C → LocallyGood C`. Docstring quotes Def 2.13–2.15 of arXiv 1912.00963 v3.
+- **New `RimRule/Conj313Literal.lean`** (43 lines): `conj313_counterexample' : ∃ C : Finset (Finset (Fin 7)), IsNeuralCode C ∧ LocallyGood C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C` and `Rim70.all70_spec'`. **No cited fact remains.** The old statements are unchanged.
+- **Docs:** README and LEAN_FINAL.md say the cited fact is now proved; NOTES.md has the Stage 10 lessons. The old `.lean` docstrings were left unchanged (brief: new files only).
+- **Checks:** `lake build` passes (3450 jobs); forbidden-word scan empty; `Check.lean`: all 39 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`.
+- **Build:** Mandatory.lean 14 s, Conj313Literal.lean 9–13 s.
+
+**Next:** none planned for Stage 10.
+
+**Blockers:** none.
+
 ## 2026-11-22: Stage 10d (collapsible ⇒ contractible)
 
 **Done.** Report: `reports/STAGE10d.md`.

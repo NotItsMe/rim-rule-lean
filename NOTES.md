@@ -80,6 +80,18 @@
 - Center of mass: `Finset.centerMass_mem_convexHull` + `Finset.centerMass_eq_of_sum_1`, then `Finset.sum_apply`, `Pi.single_apply`, `mul_ite`, `Finset.sum_ite_eq`.
 - `supp` is defined with `open Classical in` (real `≠ 0` isn't decidable); all proofs go through `mem_supp`, so no instance mismatch came up.
 
+## Stage 10b–10e (cones, collapses, collapsible ⇒ contractible, literal locally good), done
+- **Cones (10b):** mathlib's `StarConvex.contractibleSpace` does all the topology; we only show `|K|` is star-convex around `e_v` (support of `a e_v + b x` ⊆ `insert v (supp x)`).
+- **Collapse map (10c):** `f_t(x) = x + t·m(x)·(|σ| e_w − 𝟙_σ)`, `m(x) = min_{i∈σ} x_i` (`Finset.inf'`). One formula on all of `|K|`: `m = 0` exactly where the map must be the identity, so no pasting lemma. Continuity: `Continuous.finset_inf'_apply`. Lemmas: `Finset.exists_mem_eq_inf'`, `Finset.inf'_le`, `Finset.le_inf'`, `Finset.exists_eq_insert_iff` (to write `τ = insert w σ`).
+- **`open unitInterval` breaks variables named `σ`** (it is notation for `unitInterval.symm`). Write `unitInterval` in full instead.
+- **`≃ₕ` notation** is not in scope by default; write `ContinuousMap.HomotopyEquiv X Y`.
+- **Binder types:** in `∀ t x, (x : Fin n → ℝ) ∈ S → H (t, x) = x` the ascription fixes `x : Fin n → ℝ`; give binder types explicitly.
+- **Homotopy equivalence:** `left_inv` via `ContinuousMap.Homotopic.symm ⟨{ toContinuousMap := …, map_zero_left, map_one_left }⟩`; `right_inv` by proving `r.comp i = ContinuousMap.id _` with `ext y : 2` and rewriting. Transfer: `ContinuousMap.HomotopyEquiv.contractibleSpace`, `HomotopyEquiv.trans`, `HomotopyEquiv.refl`.
+- **σ ≠ ∅ in 10d** comes for free: `∅ ∈ {∅, {v}}` and collapses only remove faces (`collapsesTo_subset`).
+- **Def 2.13–2.15 of 1912.00963 (v3)** were read from the arXiv HTML page; quoted in `Mandatory.lean`.
+- **Memory:** a docstring edit in `Defs.lean` forces a full rebuild (~29 min one module at a time). With ~150 MB RAM free, parallel `lake build` fails with `failed to read file …olean.private`; build modules one at a time with `lake build <Module>` in import order.
+- `gh run list --commit` needs the full SHA; use `gh run list --limit 1` right after the push.
+
 ## CI failure (2026-11-22), fixed
 - **Symptom:** GitHub Actions "Lean Action CI" failed on the Stage 4 and Stage 5 pushes (runs 44981470885, 44982072987) after about 16 min.
 - **The Lean build was fine.** The `leanprover/lean-action@v1` step (`lake build`) passed both times. The proofs were never the problem.

@@ -11,19 +11,30 @@ closed-convex.
   closed-convex (`RimRule.theorem1a`). (b) A code satisfying the core hypotheses, H3 and H4 is
   neither open-convex nor closed-convex (`RimRule.theorem1b`). The hypotheses are defined in
   `RimRule/Defs.lean`.
-- **Conjecture 3.13 is false, up to one cited fact.** `RimRule.conj313_counterexample` gives a
-  code on 7 neurons that is a neural code, satisfies `LocallyGoodC`, and is neither open-convex
-  nor closed-convex. `RimRule.Rim70.all70_spec` proves the same for each of 70 distinct codes.
+- **Conjecture 3.13 is false, with nothing cited.** `RimRule.conj313_counterexample'` gives a
+  code on 7 neurons that is a neural code, is **locally good** in the papers' sense
+  (1912.00963, Def 2.14–2.15: every nonempty face of Δ(C) whose link has non-contractible
+  geometric realization is a codeword; `RimRule.LocallyGood`), and is neither open-convex nor
+  closed-convex. `RimRule.Rim70.all70_spec'` proves the same for each of 70 distinct codes.
+  The earlier forms `conj313_counterexample` / `all70_spec` (with the combinatorial
+  `LocallyGoodC`: every such link is collapsible) are kept unchanged.
 
 Every theorem uses only the standard axioms `[propext, Classical.choice, Quot.sound]`.
 No `sorry`, no `native_decide`.
 
-## The one cited fact
+## Collapsible ⇒ contractible (formerly cited, now proved)
 
-The result relies on exactly **one** fact that is not proved in Lean:
-**collapsible ⇒ contractible** (a textbook fact of combinatorial topology). `LocallyGoodC C`
-says every nonempty non-codeword face of Δ(C) has a collapsible link; with that fact it is the
-definition of "locally good" (1912.00963, Def 2.14–2.15).
+Up to Stage 9 the step from `LocallyGoodC` to "locally good" used one textbook fact that was
+cited, not proved: **collapsible ⇒ contractible**. Stage 10 proves it:
+
+- `RimRule/Realization.lean`: the geometric realization |K| ⊆ ℝⁿ of a complex K.
+- `RimRule/Cone.lean`: the realization of a cone is star-convex, hence contractible.
+- `RimRule/Collapse.lean`: an elementary collapse is a deformation retraction of realizations.
+- `RimRule/CollapsibleContractible.lean`: collapsible ⇒ contractible realization.
+- `RimRule/Mandatory.lean`, `RimRule/Conj313Literal.lean`: the papers' `LocallyGood`, the
+  implication `LocallyGoodC C → LocallyGood C`, and the counterexample with it.
+
+Reports for each sub-stage are in `reports/`.
 
 See `LEAN_FINAL.md` for the exact statements, the build and the axiom check.
 

@@ -49,3 +49,12 @@ import RimRule
 #print axioms RimRule.nonempty_hequiv_of_collapsesTo
 #print axioms RimRule.isComplex_elemCollapse
 #print axioms RimRule.collapsesTo_subset
+-- Stage 10e: the papers' "locally good"; the counterexample with nothing cited
+#check @RimRule.LocallyGood
+#check @RimRule.IsMandatory
+#check @RimRule.conj313_counterexample'
+#check @RimRule.Rim70.all70_spec'
+#print axioms RimRule.conj313_counterexample'
+#print axioms RimRule.Rim70.all70_spec'
+#print axioms RimRule.LocallyGoodC.locallyGood
+#print axioms RimRule.locallyGood_iff

@@ -2,6 +2,27 @@
 
 Date: 2026-11-22. Lean 4.36.0, mathlib `fc4f59e`. Repo: `NotItsMe/rim-rule-lean`.
 
+## Update (Stage 10): nothing is cited any more
+
+The cited fact below (collapsible ⇒ contractible) is now **proved in Lean**, and the
+counterexample is stated with the papers' literal definition of "locally good":
+
+```lean
+theorem conj313_counterexample' :
+    ∃ C : Finset (Finset (Fin 7)),
+      IsNeuralCode C ∧ LocallyGood C ∧ ¬ IsOpenConvex C ∧ ¬ IsClosedConvex C
+```
+
+Here `LocallyGood C` (`RimRule/Mandatory.lean`) is Def 2.15 of 1912.00963 word for word: `C`
+contains every *mandatory* face, i.e. every nonempty `σ ∈ Δ(C)` whose link has a
+non-contractible geometric realization (Def 2.14). The chain: geometric realization
+(`Realization.lean`, 10a), cones are contractible (`Cone.lean`, 10b), an elementary collapse is a
+deformation retraction (`Collapse.lean`, 10c), collapsible ⇒ contractible
+(`CollapsibleContractible.lean`, 10d), `LocallyGoodC C → LocallyGood C` and the counterexample
+(`Mandatory.lean`, `Conj313Literal.lean`, 10e). All use only `[propext, Classical.choice,
+Quot.sound]`. The text below is the Stage 9 write-up and is kept as it was; read "the one cited
+fact" as "the fact proved in Stage 10". Details: `reports/STAGE10_SUMMARY.md`.
+
 ## In plain words
 
 Gambacini, Jeffs, Macdonald and Shiu (arXiv 1912.00963) made a guess, **Conjecture 3.13**: every
@@ -183,7 +204,7 @@ Total about 1,320 s (22 min) sequentially. The new cone lemma file takes 16 s; t
 
 ## Not checked by Lean
 
-- Collapsible ⇒ contractible (the one cited fact).
+- ~~Collapsible ⇒ contractible (the one cited fact).~~ Proved in Stage 10.
 - That the 70 codes are pairwise non-isomorphic (Python only).
 - Whether Conjecture 3.13 had already been refuted by someone else (DEF_CHECK.md: not a full
   literature review).
