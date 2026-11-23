@@ -9,6 +9,7 @@ Repo: GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is comm
 **Done.** Report: `reports/STAGE10b.md`.
 - **New `RimRule/Cone.lean`** (80 lines). `starConvex_realization_cone : IsComplex K → IsConeWith K v → StarConvex ℝ (vtx v) (realization K)` and `contractibleSpace_realization_cone : IsComplex K → ∅ ∈ K → IsConeWith K v → ContractibleSpace (realization K)`, via mathlib's `StarConvex.contractibleSpace`. Corollary `contractibleSpace_realization_link_of_hull_ne` (a face that is not its own hull has a contractible link).
 - **Checks:** `lake build` passes (3442 jobs); forbidden-word scan empty; `Check.lean` prints `[propext, Classical.choice, Quot.sound]` for all old and new theorems.
+- **CI:** GitHub Actions run 45103662434 on commit 5557cc7 passed (1 min 34 s).
 - **Build:** Cone.lean 23 s. The release commit's docstring edit to `Defs.lean` forced a full local rebuild; parallel `lake build` ran out of memory (~150 MB free), so modules were built one at a time: 29 min 20 s total.
 
 **Next:** 10c (elementary collapse is a deformation retraction).

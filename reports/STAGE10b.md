@@ -53,4 +53,4 @@ None. `IsConeWith` (Stage 9) and `realization` (Stage 10a) are reused. The textb
 
 `Cone.lean` takes 23 s on its own (`lake env lean`) and 24 s inside `lake build`. The one-module-at-a-time rebuild of the whole project (forced by the `Defs.lean` docstring change) took 29 min 20 s (1760 s; Links1 388 s and Links2 657 s are most of it).
 
-CI: CI_RESULT.
+CI: GitHub Actions run 45103662434 on commit 5557cc7 passed (`lake build`, 1 min 34 s; mathlib cache hit).
