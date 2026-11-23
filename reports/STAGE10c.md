@@ -91,4 +91,4 @@ The geometric idea is the standard "push the open simplex τ off the free face �
 
 `Collapse.lean` takes 26–41 s with `lake env lean` (the spread is RAM pressure), and 30 s with `lake build RimRule.Collapse`.
 
-CI: CI_RESULT.
+CI: GitHub Actions run 45104031484 on commit e86e33f passed (`lake build`, 2 min 5 s).
