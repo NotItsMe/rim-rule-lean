@@ -4,6 +4,17 @@ One dated entry per session. Each stage followed a written brief (private planni
 
 Repo: GitHub repo `NotItsMe/rim-rule-lean` (branch `master`). Each stage is committed and pushed when it's done.
 
+## 2026-11-22: Stage 10d (collapsible ⇒ contractible)
+
+**Done.** Report: `reports/STAGE10d.md`.
+- **New `RimRule/CollapsibleContractible.lean`** (94 lines). `contractibleSpace_realization_of_collapsible : IsComplex K → Collapsible K → ContractibleSpace (realization K)`, by recursion over the collapse list: `nonempty_hequiv_of_collapsesTo` composes the 10c homotopy equivalences; `∅` survives to `{∅, {v}}` (`collapsesTo_subset`), so every free face is nonempty; `isComplex_elemCollapse` keeps each step a complex. Corollary `contractibleSpace_realization_link_of_collapsible` for links in Δ(C).
+- **Checks:** `lake build` passes (3446 jobs); forbidden-word scan empty; `Check.lean`: all 35 `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`.
+- **Build:** CollapsibleContractible.lean 18 s.
+
+**Next:** 10e (literal `LocallyGood`, `conj313_counterexample'`).
+
+**Blockers:** none.
+
 ## 2026-11-22: Stage 10c (an elementary collapse is a deformation retraction)
 
 **Done, first attempt.** Report: `reports/STAGE10c.md`.

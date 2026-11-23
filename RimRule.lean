@@ -12,3 +12,4 @@ import RimRule.Conj313
 import RimRule.Realization
 import RimRule.Cone
 import RimRule.Collapse
+import RimRule.CollapsibleContractible

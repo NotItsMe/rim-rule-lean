@@ -42,3 +42,10 @@ import RimRule
 #print axioms RimRule.pushAlong_mem
 #print axioms RimRule.pushAlong_one_mem
 #print axioms RimRule.pushAlong_of_mem_elemCollapse
+-- Stage 10d: collapsible ⇒ contractible
+#check @RimRule.contractibleSpace_realization_of_collapsible
+#print axioms RimRule.contractibleSpace_realization_of_collapsible
+#print axioms RimRule.contractibleSpace_realization_link_of_collapsible
+#print axioms RimRule.nonempty_hequiv_of_collapsesTo
+#print axioms RimRule.isComplex_elemCollapse
+#print axioms RimRule.collapsesTo_subset
